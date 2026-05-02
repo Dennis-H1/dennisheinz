@@ -1,5 +1,6 @@
 ---
 import Countdown from "../components/Countdown.tsx";
+import "../styles/global.css";
 ---
 
 <!doctype html>
@@ -12,82 +13,5 @@ import Countdown from "../components/Countdown.tsx";
   <body>
     <h1>Dennis Heinz — coming soon</h1>
     <Countdown client:load deadline="2026-05-09T00:00:00" />
-
-    <style is:global>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: #0a0a0a;
-        color: #f0ede8;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        gap: 3rem;
-      }
-
-      h1 {
-        font-size: clamp(1.4rem, 4vw, 2.2rem);
-        font-weight: 400;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #f0ede8;
-        opacity: 0.9;
-      }
-
-      .timer {
-        display: flex;
-        gap: clamp(1rem, 4vw, 2.5rem);
-        align-items: flex-start;
-      }
-
-      .unit {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .digits {
-        font-size: clamp(3rem, 10vw, 6rem);
-        font-weight: 300;
-        line-height: 1;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: -0.02em;
-        color: #f0ede8;
-        min-width: 2ch;
-        text-align: center;
-      }
-
-      .label {
-        font-size: clamp(0.55rem, 1.5vw, 0.7rem);
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: #888;
-      }
-
-      .sep {
-        font-size: clamp(3rem, 10vw, 6rem);
-        font-weight: 200;
-        line-height: 1;
-        color: #333;
-        padding-top: 0;
-      }
-
-      .done {
-        font-size: 1.5rem;
-        font-weight: 300;
-        letter-spacing: 0.1em;
-        color: #f0ede8;
-      }
-    </style>
   </body>
 </html>
