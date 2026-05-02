@@ -1,0 +1,170 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+const locales = ["de", "en"] as const;
+const defaultLocale = "de";
+type Locale = (typeof locales)[number];
+
+const currentLocale = (Astro.currentLocale ?? defaultLocale) as Locale;
+
+// Strip locale prefix from the current pathname to get the locale-agnostic path.
+let basePath = Astro.url.pathname;
+for (const locale of locales) {
+  if (locale === defaultLocale) continue;
+  if (basePath === `/${locale}` || basePath === `/${locale}/`) {
+    basePath = "/";
+    break;
+  }
+  if (basePath.startsWith(`/${locale}/`)) {
+    basePath = basePath.slice(locale.length + 1);
+    break;
+  }
+}
+
+const pathFor = (locale: Locale) =>
+  locale === defaultLocale
+    ? basePath
+    : basePath === "/"
+      ? `/${locale}/`
+      : `/${locale}${basePath}`;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const siteUrl = Astro.site!.toString().replace(/\/$/, "");
+const personId = `${siteUrl}/#person`;
+const serviceId = `${siteUrl}/#service`;
+
+const personDescription =
+  currentLocale === "de"
+    ? "Hi, ich bin Dennis – Softwareentwickler aus dem Münsterland. Ich entwickle leidenschaftlich gerne Webanwendungen mit PHP, React und TypeScript und beschäftige mich nebenbei mit Machine Learning. Auf dieser Seite stelle ich meine Projekte vor – schreib mir gerne über LinkedIn oder per E-Mail."
+    : "Hi, I'm Dennis — a software developer from the Münsterland region of Germany. I love building web applications with PHP, React and TypeScript, and I tinker with machine learning on the side. This site is where I showcase my projects — feel free to reach out via LinkedIn or email.";
+
+const serviceDescription =
+  currentLocale === "de"
+    ? "Webentwicklung mit PHP, React, TypeScript und Datenbanken (SQL & NoSQL) – Full-Stack von Frontend bis Backend."
+    : "Web development with PHP, React, TypeScript and databases (SQL & NoSQL) — full-stack, from frontend to backend.";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: "Dennis Heinz",
+      jobTitle:
+        currentLocale === "de" ? "Softwareentwickler" : "Software Developer",
+      description: personDescription,
+      url: siteUrl,
+      email: "mailto:dennis@dennisheinz.com",
+      workLocation: [
+        { "@type": "Place", name: "Rheine, Deutschland" },
+        { "@type": "Place", name: "Münster, Deutschland" },
+      ],
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "University of Münster",
+        url: "https://www.uni-muenster.de/en/",
+      },
+      knowsAbout: [
+        "Full-Stack Web Development",
+        "PHP",
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "Machine Learning",
+        "SQL Databases",
+        "NoSQL Databases",
+        "Web Application Architecture",
+      ],
+      makesOffer: { "@id": serviceId },
+      sameAs: ["https://www.linkedin.com/in/dennis-heinz-a185241a9/"],
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": serviceId,
+      name:
+        currentLocale === "de"
+          ? "Dennis Heinz – Webentwicklung"
+          : "Dennis Heinz – Web Development",
+      description: serviceDescription,
+      url: siteUrl,
+      email: "mailto:dennis@dennisheinz.com",
+      provider: { "@id": personId },
+      founder: { "@id": personId },
+      areaServed: [
+        { "@type": "City", name: "Rheine" },
+        { "@type": "City", name: "Münster" },
+        { "@type": "Country", name: "Deutschland" },
+      ],
+      serviceType: [
+        currentLocale === "de" ? "Webentwicklung" : "Web Development",
+        currentLocale === "de"
+          ? "Full-Stack-Entwicklung"
+          : "Full-Stack Development",
+      ],
+      knowsAbout: [
+        "PHP",
+        "React",
+        "TypeScript",
+        "Machine Learning",
+        "SQL",
+        "NoSQL",
+      ],
+      sameAs: ["https://www.linkedin.com/in/dennis-heinz-a185241a9/"],
+    },
+  ],
+};
+
+const structuredDataJson = JSON.stringify(structuredData).replace(
+  /</g,
+  "\\u003c",
+);
+---
+
+<!doctype html>
+<html lang={currentLocale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+
+    <link rel="canonical" href={canonical} />
+
+    {
+      locales.map((locale) => (
+        <link
+          rel="alternate"
+          hreflang={locale}
+          href={new URL(pathFor(locale), Astro.site)}
+        />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(pathFor(defaultLocale), Astro.site)}
+    />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/feed+xml"
+      title={title}
+      href="/rss.xml"
+    />
+
+    <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
