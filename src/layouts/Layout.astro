@@ -4,9 +4,18 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: "website" | "article";
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  ogImage,
+  ogImageAlt,
+  ogType = "website",
+} = Astro.props;
 
 const locales = ["de", "en"] as const;
 const defaultLocale = "de";
@@ -43,13 +52,13 @@ const serviceId = `${siteUrl}/#service`;
 
 const personDescription =
   currentLocale === "de"
-    ? "Hi, ich bin Dennis – Softwareentwickler aus dem Münsterland. Ich entwickle leidenschaftlich gerne Webanwendungen mit PHP, React und TypeScript und beschäftige mich nebenbei mit Machine Learning. Auf dieser Seite stelle ich meine Projekte vor – schreib mir gerne über LinkedIn oder per E-Mail."
-    : "Hi, I'm Dennis — a software developer from the Münsterland region of Germany. I love building web applications with PHP, React and TypeScript, and I tinker with machine learning on the side. This site is where I showcase my projects — feel free to reach out via LinkedIn or email.";
+    ? "Hi, ich bin Dennis, Softwareentwickler aus dem Münsterland. Ich entwickle leidenschaftlich gerne Webanwendungen mit PHP, React und TypeScript und beschäftige mich nebenbei mit Machine Learning. Auf dieser Seite stelle ich meine Projekte vor – schreib mir gerne über LinkedIn oder per E-Mail."
+    : "Hi, I'm Dennis, a software developer from the Münsterland region of Germany. I love building web applications with PHP, React and TypeScript, and I tinker with machine learning on the side. This site is where I showcase my projects — feel free to reach out via LinkedIn or email.";
 
 const serviceDescription =
   currentLocale === "de"
-    ? "Webentwicklung mit PHP, React, TypeScript und Datenbanken (SQL & NoSQL) – Full-Stack von Frontend bis Backend."
-    : "Web development with PHP, React, TypeScript and databases (SQL & NoSQL) — full-stack, from frontend to backend.";
+    ? "Webentwicklung mit PHP, React, TypeScript und Datenbanken (SQL & NoSQL). Full-Stack von Frontend bis Backend."
+    : "Web development with PHP, React, TypeScript and databases (SQL & NoSQL). Full-stack, from frontend to backend.";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -127,6 +136,21 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
   /</g,
   "\\u003c",
 );
+
+const ogLocaleMap = { de: "de_DE", en: "en_US" } as const;
+const ogLocale = ogLocaleMap[currentLocale];
+const ogLocaleAlternates = locales
+  .filter((l) => l !== currentLocale)
+  .map((l) => ogLocaleMap[l]);
+
+const metaDescription = description ?? personDescription;
+const ogImageUrl = new URL(ogImage ?? `/og/${currentLocale}.png`, Astro.site);
+const ogImageAltText =
+  ogImageAlt ??
+  (currentLocale === "de"
+    ? "Dennis Heinz – Softwareentwickler aus dem Münsterland"
+    : "Dennis Heinz – Software Developer from the Münsterland region");
+const siteName = "Dennis Heinz";
 ---
 
 <!doctype html>
@@ -135,9 +159,32 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    {description && <meta name="description" content={description} />}
+    <meta name="description" content={metaDescription} />
 
     <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale} />
+    {
+      ogLocaleAlternates.map((alt) => (
+        <meta property="og:locale:alternate" content={alt} />
+      ))
+    }
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAltText} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAltText} />
 
     {
       locales.map((locale) => (
@@ -162,7 +209,11 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
       href="/rss.xml"
     />
 
-    <script type="application/ld+json" set:html={structuredDataJson} is:inline />
+    <script
+      type="application/ld+json"
+      set:html={structuredDataJson}
+      is:inline
+    />
   </head>
   <body>
     <slot />
