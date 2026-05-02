@@ -5,5 +5,15 @@ import Countdown from "../components/Countdown.tsx";
 
 <Layout title="Dennis Heinz — coming soon">
   <h1>Dennis Heinz. Coming Soon</h1>
-  <Countdown client:only="react" deadline="2026-05-09T00:00:00" />
+  <Countdown client:only="react" deadline="2026-05-09T00:00:00">
+    <div slot="fallback" class="timer">
+      <div class="unit"><span class="digits">--</span><span class="label">days</span></div>
+      <span class="sep">:</span>
+      <div class="unit"><span class="digits">--</span><span class="label">hours</span></div>
+      <span class="sep">:</span>
+      <div class="unit"><span class="digits">--</span><span class="label">minutes</span></div>
+      <span class="sep">:</span>
+      <div class="unit"><span class="digits">--</span><span class="label">seconds</span></div>
+    </div>
+  </Countdown>
 </Layout>
