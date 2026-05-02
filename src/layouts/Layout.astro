@@ -49,6 +49,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 const siteUrl = Astro.site!.toString().replace(/\/$/, "");
 const personId = `${siteUrl}/#person`;
 const serviceId = `${siteUrl}/#service`;
+const websiteId = `${siteUrl}/#website`;
+const ogImageId = `${siteUrl}/og/${currentLocale}.png#image`;
 
 const personDescription =
   currentLocale === "de"
@@ -60,9 +62,37 @@ const serviceDescription =
     ? "Webentwicklung mit PHP, React, TypeScript und Datenbanken (SQL & NoSQL). Full-Stack von Frontend bis Backend."
     : "Web development with PHP, React, TypeScript and databases (SQL & NoSQL). Full-stack, from frontend to backend.";
 
+const metaDescription = description ?? personDescription;
+const ogImageUrl = new URL(ogImage ?? `/og/${currentLocale}.png`, Astro.site);
+const ogImageAltText =
+  ogImageAlt ??
+  (currentLocale === "de"
+    ? "Dennis Heinz – Softwareentwickler aus dem Münsterland"
+    : "Dennis Heinz – Software Developer from the Münsterland region");
+const siteName = "Dennis Heinz";
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      url: siteUrl,
+      name: siteName,
+      description: personDescription,
+      inLanguage: currentLocale,
+      publisher: { "@id": personId },
+    },
+    {
+      "@type": "ImageObject",
+      "@id": ogImageId,
+      url: ogImageUrl.toString(),
+      contentUrl: ogImageUrl.toString(),
+      width: 1200,
+      height: 630,
+      encodingFormat: "image/png",
+      caption: ogImageAltText,
+    },
     {
       "@type": "Person",
       "@id": personId,
@@ -71,6 +101,7 @@ const structuredData = {
         currentLocale === "de" ? "Softwareentwickler" : "Software Developer",
       description: personDescription,
       url: siteUrl,
+      image: { "@id": ogImageId },
       email: "mailto:dennis@dennisheinz.com",
       workLocation: [
         { "@type": "Place", name: "Rheine, Deutschland" },
@@ -142,15 +173,6 @@ const ogLocale = ogLocaleMap[currentLocale];
 const ogLocaleAlternates = locales
   .filter((l) => l !== currentLocale)
   .map((l) => ogLocaleMap[l]);
-
-const metaDescription = description ?? personDescription;
-const ogImageUrl = new URL(ogImage ?? `/og/${currentLocale}.png`, Astro.site);
-const ogImageAltText =
-  ogImageAlt ??
-  (currentLocale === "de"
-    ? "Dennis Heinz – Softwareentwickler aus dem Münsterland"
-    : "Dennis Heinz – Software Developer from the Münsterland region");
-const siteName = "Dennis Heinz";
 ---
 
 <!doctype html>
