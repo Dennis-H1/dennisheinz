@@ -1,0 +1,17 @@
+services:
+  dennisheinz:
+    image: nginx:alpine
+    container_name: dennisheinz
+    volumes:
+      - /var/www/dennisheinz/html:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=dennisheinz.com,www.dennisheinz.com
+      - LETSENCRYPT_HOST=dennisheinz.com,www.dennisheinz.com
+      - LETSENCRYPT_EMAIL=dennis@dennisheinz.com
+    restart: always
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
