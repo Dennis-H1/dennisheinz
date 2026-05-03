@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "Impressum - Dennis Heinz";
+const description =
+  "Impressum und Anbieterkennzeichnung gemäß § 5 DDG für dennisheinz.com.";
+---
+
+<Layout title={title} description={description}>
+  <div class="site">
+    <nav class="nav">
+      <a href="/" class="nav-logo">Dennis Heinz</a>
+      <div class="nav-links">
+        <a href="/about">Über</a>
+        <a href="/blog">Blog</a>
+      </div>
+    </nav>
+
+    <article class="prose">
+      <header class="prose-header">
+        <p class="hero-label">Rechtliches</p>
+        <h1 class="hero-title">Impressum</h1>
+      </header>
+
+      <section>
+        <h2>Angaben gemäß § 5 DDG</h2>
+        <p>
+          Dennis Heinz<br />
+          Eltropweg 30<br />
+          48155 Münster<br />
+          Deutschland
+        </p>
+      </section>
+
+      <section>
+        <h2>Kontakt</h2>
+        <p>
+          Telefon: +49 (0) 163 / 678 60 68<br />
+          E-Mail: <a href="mailto:dennis@dennisheinz.com"
+            >&#100;ennis&#64;&#100;ennisheinz&#46;com</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+        <p>
+          Dennis Heinz<br />
+          Eltropweg 30<br />
+          48155 Münster<br />
+          Deutschland
+        </p>
+      </section>
+    </article>
+
+    <footer class="footer">
+      <span>© 2026 Dennis Heinz</span>
+      <div>
+        <a href="/impressum">Impressum</a>
+        <a href="https://github.com/Dennis-H1" rel="me">GitHub</a>
+        <a href="https://www.linkedin.com/in/dennis-heinz-a185241a9/" rel="me"
+          >LinkedIn</a
+        >
+      </div>
+    </footer>
+  </div>
+</Layout>
