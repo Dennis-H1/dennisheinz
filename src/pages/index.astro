@@ -1,19 +1,52 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Countdown from "../components/Countdown.tsx";
+
+const description =
+  "Dennis Heinz – Softwareentwickler aus dem Münsterland. Ich schreibe über Software, Nebenprojekte und die Dinge, die ich gerade herausfinde.";
 ---
 
-<Layout title="Dennis Heinz — coming soon">
-  <h1>Dennis Heinz. Coming Soon</h1>
-  <Countdown client:only="react" deadline="2026-05-09T00:00:00">
-    <div slot="fallback" class="timer">
-      <div class="unit"><span class="digits">--</span><span class="label">days</span></div>
-      <span class="sep">:</span>
-      <div class="unit"><span class="digits">--</span><span class="label">hours</span></div>
-      <span class="sep">:</span>
-      <div class="unit"><span class="digits">--</span><span class="label">minutes</span></div>
-      <span class="sep">:</span>
-      <div class="unit"><span class="digits">--</span><span class="label">seconds</span></div>
+<Layout title="Dennis Heinz – Softwareentwickler" description={description}>
+  <div class="site">
+    <nav class="nav">
+      <a href="/" class="nav-logo">Dennis Heinz</a>
+      <div class="nav-links">
+        <a href="/about">Über</a>
+        <a href="/blog">Blog</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <p class="hero-label">Softwareentwickler · Münsterland, DE</p>
+      <h1 class="hero-title">Dennis Heinz</h1>
+      <p class="hero-sub">
+        Entwickler. Macher. Ich schreibe über Software, Nebenprojekte und die
+        Dinge, die ich gerade herausfinde.
+      </p>
+    </section>
+
+    <div class="section">
+      <p class="section-label" style="margin-bottom: 1.25rem;">Hier entlang</p>
+      <div class="list">
+        <a class="list-item" href="/about">
+          <span class="list-name">Über mich</span>
+          <span class="list-arrow">→</span>
+        </a>
+        <a class="list-item" href="/blog">
+          <span class="list-name">Blog</span>
+          <span class="list-arrow">→</span>
+        </a>
+      </div>
     </div>
-  </Countdown>
+
+    <footer class="footer">
+      <span>© 2026 Dennis Heinz</span>
+      <div>
+        <a href="/impressum">Impressum</a>
+        <a href="https://github.com/Dennis-H1" rel="me">GitHub</a>
+        <a href="https://www.linkedin.com/in/dennis-heinz-a185241a9/" rel="me"
+          >LinkedIn</a
+        >
+      </div>
+    </footer>
+  </div>
 </Layout>

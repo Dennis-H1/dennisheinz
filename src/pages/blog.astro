@@ -1,0 +1,65 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "Blog - Dennis Heinz";
+const description =
+  "Notizen von Dennis Heinz über Software, Nebenprojekte und die Dinge, die ich gerade herausfinde.";
+
+const posts: { title: string; slug: string; date: string; excerpt: string }[] =
+  [];
+---
+
+<Layout title={title} description={description}>
+  <div class="site">
+    <nav class="nav">
+      <a href="/" class="nav-logo">Dennis Heinz</a>
+      <div class="nav-links">
+        <a href="/about">Über</a>
+        <a href="/blog">Blog</a>
+      </div>
+    </nav>
+
+    <header class="prose-header">
+      <p class="hero-label">Blog</p>
+      <h1 class="hero-title">Notizen</h1>
+      <p class="hero-sub">
+        Gedanken zu Software, Nebenprojekten und dem, was ich gerade lerne.
+      </p>
+    </header>
+
+    <section class="section">
+      {
+        posts.length === 0 ? (
+          <p class="empty">
+            Hier ist noch nichts. Die ersten Beiträge sind in Arbeit.
+            Zwischenzeitlich findest du mich auf
+            <a href="https://github.com/Dennis-H1">GitHub</a>.
+          </p>
+        ) : (
+          <div class="list">
+            {posts.map((post) => (
+              <a class="list-item" href={`/blog/${post.slug}`}>
+                <span class="list-name">{post.title}</span>
+                <div class="list-meta">
+                  <span class="list-tag">{post.date}</span>
+                  <span class="list-arrow">→</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 Dennis Heinz</span>
+      <div>
+        <a href="/impressum">Impressum</a>
+        <a href="https://github.com/Dennis-H1" rel="me">GitHub</a>
+        <a href="https://www.linkedin.com/in/dennis-heinz-a185241a9/" rel="me"
+          >LinkedIn</a
+        >
+      </div>
+    </footer>
+  </div>
+</Layout>
