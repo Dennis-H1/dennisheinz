@@ -17,32 +17,7 @@ const {
   ogType = "website",
 } = Astro.props;
 
-const locales = ["de", "en"] as const;
-const defaultLocale = "de";
-type Locale = (typeof locales)[number];
-
-const currentLocale = (Astro.currentLocale ?? defaultLocale) as Locale;
-
-// Strip locale prefix from the current pathname to get the locale-agnostic path.
-let basePath = Astro.url.pathname;
-for (const locale of locales) {
-  if (locale === defaultLocale) continue;
-  if (basePath === `/${locale}` || basePath === `/${locale}/`) {
-    basePath = "/";
-    break;
-  }
-  if (basePath.startsWith(`/${locale}/`)) {
-    basePath = basePath.slice(locale.length + 1);
-    break;
-  }
-}
-
-const pathFor = (locale: Locale) =>
-  locale === defaultLocale
-    ? basePath
-    : basePath === "/"
-      ? `/${locale}/`
-      : `/${locale}${basePath}`;
+const currentLocale = "de" as const;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
@@ -53,22 +28,15 @@ const websiteId = `${siteUrl}/#website`;
 const ogImageId = `${siteUrl}/og/${currentLocale}.png#image`;
 
 const personDescription =
-  currentLocale === "de"
-    ? "Hi, ich bin Dennis, Softwareentwickler aus dem Münsterland. Ich entwickle leidenschaftlich gerne Webanwendungen mit PHP, React und TypeScript und beschäftige mich nebenbei mit Machine Learning. Auf dieser Seite stelle ich meine Projekte vor – schreib mir gerne über LinkedIn oder per E-Mail."
-    : "Hi, I'm Dennis, a software developer from the Münsterland region of Germany. I love building web applications with PHP, React and TypeScript, and I tinker with machine learning on the side. This site is where I showcase my projects — feel free to reach out via LinkedIn or email.";
+  "Hi, ich bin Dennis, Softwareentwickler aus dem Münsterland. Ich entwickle leidenschaftlich gerne Webanwendungen mit PHP, React und TypeScript und beschäftige mich nebenbei mit Machine Learning. Auf dieser Seite stelle ich meine Projekte vor – schreib mir gerne über LinkedIn oder per E-Mail.";
 
 const serviceDescription =
-  currentLocale === "de"
-    ? "Webentwicklung mit PHP, React, TypeScript und Datenbanken (SQL & NoSQL). Full-Stack von Frontend bis Backend."
-    : "Web development with PHP, React, TypeScript and databases (SQL & NoSQL). Full-stack, from frontend to backend.";
+  "Webentwicklung mit PHP, React, TypeScript und Datenbanken (SQL & NoSQL). Full-Stack von Frontend bis Backend.";
 
 const metaDescription = description ?? personDescription;
 const ogImageUrl = new URL(ogImage ?? `/og/${currentLocale}.png`, Astro.site);
 const ogImageAltText =
-  ogImageAlt ??
-  (currentLocale === "de"
-    ? "Dennis Heinz – Softwareentwickler aus dem Münsterland"
-    : "Dennis Heinz – Software Developer from the Münsterland region");
+  ogImageAlt ?? "Dennis Heinz – Softwareentwickler aus dem Münsterland";
 const siteName = "Dennis Heinz";
 
 const structuredData = {
@@ -97,8 +65,7 @@ const structuredData = {
       "@type": "Person",
       "@id": personId,
       name: "Dennis Heinz",
-      jobTitle:
-        currentLocale === "de" ? "Softwareentwickler" : "Software Developer",
+      jobTitle: "Softwareentwickler",
       description: personDescription,
       url: siteUrl,
       image: { "@id": ogImageId },
@@ -130,10 +97,7 @@ const structuredData = {
     {
       "@type": "ProfessionalService",
       "@id": serviceId,
-      name:
-        currentLocale === "de"
-          ? "Dennis Heinz – Webentwicklung"
-          : "Dennis Heinz – Web Development",
+      name: "Dennis Heinz – Webentwicklung",
       description: serviceDescription,
       url: siteUrl,
       email: "mailto:dennis@dennisheinz.com",
@@ -144,12 +108,7 @@ const structuredData = {
         { "@type": "City", name: "Münster" },
         { "@type": "Country", name: "Deutschland" },
       ],
-      serviceType: [
-        currentLocale === "de" ? "Webentwicklung" : "Web Development",
-        currentLocale === "de"
-          ? "Full-Stack-Entwicklung"
-          : "Full-Stack Development",
-      ],
+      serviceType: ["Webentwicklung", "Full-Stack-Entwicklung"],
       knowsAbout: [
         "PHP",
         "React",
@@ -168,11 +127,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
   "\\u003c",
 );
 
-const ogLocaleMap = { de: "de_DE", en: "en_US" } as const;
-const ogLocale = ogLocaleMap[currentLocale];
-const ogLocaleAlternates = locales
-  .filter((l) => l !== currentLocale)
-  .map((l) => ogLocaleMap[l]);
+const ogLocale = "de_DE";
 ---
 
 <!doctype html>
@@ -191,11 +146,6 @@ const ogLocaleAlternates = locales
     <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={ogLocale} />
-    {
-      ogLocaleAlternates.map((alt) => (
-        <meta property="og:locale:alternate" content={alt} />
-      ))
-    }
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
@@ -207,21 +157,6 @@ const ogLocaleAlternates = locales
     <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={ogImageAltText} />
-
-    {
-      locales.map((locale) => (
-        <link
-          rel="alternate"
-          hreflang={locale}
-          href={new URL(pathFor(locale), Astro.site)}
-        />
-      ))
-    }
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href={new URL(pathFor(defaultLocale), Astro.site)}
-    />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link
