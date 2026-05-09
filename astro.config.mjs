@@ -1,8 +1,10 @@
 import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   site: "https://dennisheinz.com",
-  integrations: [react(), sitemap()],
+  integrations: [sitemap()],
+  build: {
+    inlineStylesheets: "always",
+  },
 });
