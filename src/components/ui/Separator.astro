@@ -1,0 +1,18 @@
+---
+interface Props {
+  orientation?: "horizontal" | "vertical";
+  class?: string;
+}
+
+const { orientation = "horizontal", class: className } = Astro.props;
+---
+
+<div
+  role="separator"
+  aria-orientation={orientation}
+  class:list={[
+    "shrink-0 bg-border",
+    orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
+    className,
+  ]}
+/>

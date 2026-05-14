@@ -1,25 +1,25 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
 
 const title = "Datenschutzerklärung - Dennis Heinz";
 const description =
   "Datenschutzerklärung gemäß DSGVO für dennisheinz.com – Verantwortlicher, Verarbeitungen, Hosting (Hetzner, Cloudflare), Kontaktaufnahme (Cloudflare Email Routing, Brevo) und Rechte der Betroffenen.";
 ---
 
-<Layout title={title} description={description}>
-  <div class="site">
-    <nav class="nav">
-      <a href="/" class="nav-logo">Dennis Heinz</a>
-      <div class="nav-links">
-        <a href="/about/">Über</a>
-        <a href="/blog/">Blog</a>
-      </div>
-    </nav>
+<Base title={title} description={description}>
+  <div class="max-w-2xl mx-auto px-6">
+    <Nav />
 
-    <article class="prose datenschutz">
-      <header class="prose-header">
-        <p class="hero-label">Rechtliches</p>
-        <h1 class="hero-title">Datenschutzerklärung</h1>
+    <article class="dsgvo">
+      <header class="pb-10 border-b border-border">
+        <p class="text-[12px] tracking-[0.1em] uppercase text-muted-foreground mb-5">
+          Rechtliches
+        </p>
+        <h1 class="text-[clamp(2.2rem,5vw,3.4rem)] font-medium leading-[1.1] text-foreground">
+          Datenschutzerklärung
+        </h1>
       </header>
 
       <section>
@@ -29,9 +29,7 @@ const description =
         <ul class="index">
           <li><a class="index-link" href="#m3">Verantwortlicher</a></li>
           <li>
-            <a class="index-link" href="#mOverview"
-              >Übersicht der Verarbeitungen</a
-            >
+            <a class="index-link" href="#mOverview">Übersicht der Verarbeitungen</a>
           </li>
           <li>
             <a class="index-link" href="#m2427">Maßgebliche Rechtsgrundlagen</a>
@@ -41,18 +39,17 @@ const description =
             <a class="index-link" href="#m24">Internationale Datentransfers</a>
           </li>
           <li>
-            <a class="index-link" href="#m12"
-              >Allgemeine Informationen zur Datenspeicherung und Löschung</a
-            >
+            <a class="index-link" href="#m12">
+              Allgemeine Informationen zur Datenspeicherung und Löschung
+            </a>
           </li>
           <li>
-            <a class="index-link" href="#m10">Rechte der betroffenen Personen</a
-            >
+            <a class="index-link" href="#m10">Rechte der betroffenen Personen</a>
           </li>
           <li>
-            <a class="index-link" href="#m225"
-              >Bereitstellung des Onlineangebots und Webhosting</a
-            >
+            <a class="index-link" href="#m225">
+              Bereitstellung des Onlineangebots und Webhosting
+            </a>
           </li>
           <li><a class="index-link" href="#m182">Kontaktaufnahme</a></li>
           <li>
@@ -73,14 +70,10 @@ const description =
           48155, Münster, Deutschland
         </p>
         <p>
-          E-Mail-Adresse: <a href="mailto:dennis@dennisheinz.com"
-            >dennis@dennisheinz.com</a
-          >
+          E-Mail-Adresse: <a href="mailto:dennis@dennisheinz.com">dennis@dennisheinz.com</a>
         </p>
         <p>
-          Impressum: <a href="https://dennisheinz.com/impressum/"
-            >https://dennisheinz.com/impressum/</a
-          >
+          Impressum: <a href="https://dennisheinz.com/impressum/">https://dennisheinz.com/impressum/</a>
         </p>
       </section>
 
@@ -136,15 +129,13 @@ const description =
             Zweck oder mehrere bestimmte Zwecke gegeben.
           </li>
           <li>
-            <strong
-              >Rechtliche Verpflichtung (Art. 6 Abs. 1 S. 1 lit. c) DSGVO)</strong
-            > - Die Verarbeitung ist zur Erfüllung einer rechtlichen Verpflichtung
+            <strong>Rechtliche Verpflichtung (Art. 6 Abs. 1 S. 1 lit. c) DSGVO)</strong>
+            {" "}- Die Verarbeitung ist zur Erfüllung einer rechtlichen Verpflichtung
             erforderlich, der der Verantwortliche unterliegt.
           </li>
           <li>
-            <strong
-              >Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO)</strong
-            > - die Verarbeitung ist zur Wahrung der berechtigten Interessen des
+            <strong>Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO)</strong>
+            {" "}- die Verarbeitung ist zur Wahrung der berechtigten Interessen des
             Verantwortlichen oder eines Dritten notwendig, vorausgesetzt, dass die
             Interessen, Grundrechte und Grundfreiheiten der betroffenen Person, die
             den Schutz personenbezogener Daten verlangen, nicht überwiegen.
@@ -295,7 +286,7 @@ const description =
           Bei mehreren Angaben zur Aufbewahrungsdauer oder Löschungsfristen
           eines Datums, ist stets die längste Frist maßgeblich. Daten, die nicht
           mehr für den ursprünglich vorgesehenen Zweck, sondern aufgrund
-          gesetzlicher Vorgaben oder anderer Gründe aufbewahrt werden,
+          gesetzlicher Vorgaben oder anderer Gründen aufbewahrt werden,
           verarbeiten wir ausschließlich zu den Gründen, die ihre Aufbewahrung
           rechtfertigen.
         </p>
@@ -356,8 +347,8 @@ const description =
         </p>
         <ul>
           <li>
-            <strong
-              >Widerspruchsrecht: Sie haben das Recht, aus Gründen, die sich aus
+            <strong>
+              Widerspruchsrecht: Sie haben das Recht, aus Gründen, die sich aus
               Ihrer besonderen Situation ergeben, jederzeit gegen die
               Verarbeitung der Sie betreffenden personenbezogenen Daten, die
               aufgrund von Art. 6 Abs. 1 lit. e oder f DSGVO erfolgt, Widerspruch
@@ -367,8 +358,8 @@ const description =
               jederzeit Widerspruch gegen die Verarbeitung der Sie betreffenden
               personenbezogenen Daten zum Zwecke derartiger Werbung einzulegen;
               dies gilt auch für das Profiling, soweit es mit solcher
-              Direktwerbung in Verbindung steht.</strong
-            >
+              Direktwerbung in Verbindung steht.
+            </strong>
           </li>
           <li>
             <strong>Widerrufsrecht bei Einwilligungen:</strong> Sie haben das Recht,
@@ -386,8 +377,8 @@ const description =
             die Berichtigung der Sie betreffenden unrichtigen Daten zu verlangen.
           </li>
           <li>
-            <strong>Recht auf Löschung und Einschränkung der Verarbeitung:</strong
-            > Sie haben nach Maßgabe der gesetzlichen Vorgaben das Recht, zu verlangen,
+            <strong>Recht auf Löschung und Einschränkung der Verarbeitung:</strong>
+            {" "}Sie haben nach Maßgabe der gesetzlichen Vorgaben das Recht, zu verlangen,
             dass Sie betreffende Daten unverzüglich gelöscht werden, bzw. alternativ
             nach Maßgabe der gesetzlichen Vorgaben eine Einschränkung der Verarbeitung
             der Daten zu verlangen.
@@ -449,9 +440,7 @@ const description =
           </li>
         </ul>
         <p>
-          <strong
-            >Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und Diensten:</strong
-          >
+          <strong>Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und Diensten:</strong>
         </p>
         <ul class="m-elements">
           <li>
@@ -476,26 +465,15 @@ const description =
           <li>
             <strong>Hetzner: </strong>Leistungen auf dem Gebiet der Bereitstellung
             von informationstechnischer Infrastruktur und verbundenen Dienstleistungen
-            (z. B. Speicherplatz und/oder Rechenkapazitäten); <strong
-              >Dienstanbieter:</strong
-            > Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Deutschland;
+            (z. B. Speicherplatz und/oder Rechenkapazitäten); <strong>Dienstanbieter:</strong>
+            {" "}Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Deutschland;
             <strong>Rechtsgrundlagen:</strong> Berechtigte Interessen (Art. 6 Abs.
             1 S. 1 lit. f) DSGVO); <strong>Website:</strong>
-            <a href="https://www.hetzner.com" target="_blank" rel="noopener"
-              >https://www.hetzner.com</a
-            >; <strong>Datenschutzerklärung:</strong>
-            <a
-              href="https://www.hetzner.com/de/rechtliches/datenschutz"
-              target="_blank"
-              rel="noopener"
-              >https://www.hetzner.com/de/rechtliches/datenschutz</a
-            >. <strong>Auftragsverarbeitungsvertrag:</strong>
-            <a
-              href="https://docs.hetzner.com/de/general/general-terms-and-conditions/data-privacy-faq/"
-              target="_blank"
-              rel="noopener"
-              >https://docs.hetzner.com/de/general/general-terms-and-conditions/data-privacy-faq/</a
-            >.
+            {" "}<a href="https://www.hetzner.com" target="_blank" rel="noopener">https://www.hetzner.com</a>;
+            {" "}<strong>Datenschutzerklärung:</strong>
+            {" "}<a href="https://www.hetzner.com/de/rechtliches/datenschutz" target="_blank" rel="noopener">https://www.hetzner.com/de/rechtliches/datenschutz</a>.
+            {" "}<strong>Auftragsverarbeitungsvertrag:</strong>
+            {" "}<a href="https://docs.hetzner.com/de/general/general-terms-and-conditions/data-privacy-faq/" target="_blank" rel="noopener">https://docs.hetzner.com/de/general/general-terms-and-conditions/data-privacy-faq/</a>.
           </li>
           <li class="has-adapted-note">
             <span class="adapted-note">Vom Websiteinhaber angepasst.</span>
@@ -504,26 +482,15 @@ const description =
             sowie zum Schutz vor Cyberangriffen (z.&nbsp;B. DDoS-Abwehr,
             Bot-Schutz). Cloudflare verarbeitet hierbei IP-Adressen und weitere
             Verbindungsdaten der Nutzer; <strong>Dienstanbieter:</strong>
-            Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA;
+            {" "}Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA;
             <strong>Rechtsgrundlagen:</strong> Berechtigte Interessen (Art. 6 Abs.
             1 S. 1 lit. f) DSGVO); <strong>Website:</strong>
-            <a href="https://www.cloudflare.com" target="_blank" rel="noopener"
-              >https://www.cloudflare.com</a
-            >; <strong>Datenschutzerklärung:</strong>
-            <a
-              href="https://www.cloudflare.com/privacypolicy/"
-              target="_blank"
-              rel="noopener">https://www.cloudflare.com/privacypolicy/</a
-            >; <strong>Grundlage Drittlandtransfers:</strong> Data Privacy Framework
-            (DPF), Standardvertragsklauseln; <strong
-              >Auftragsverarbeitungsvertrag:</strong
-            >
-            <a
-              href="https://www.cloudflare.com/de-de/cloudflare-customer-dpa/"
-              target="_blank"
-              rel="noopener"
-              >https://www.cloudflare.com/de-de/cloudflare-customer-dpa/</a
-            >.
+            {" "}<a href="https://www.cloudflare.com" target="_blank" rel="noopener">https://www.cloudflare.com</a>;
+            {" "}<strong>Datenschutzerklärung:</strong>
+            {" "}<a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">https://www.cloudflare.com/privacypolicy/</a>;
+            {" "}<strong>Grundlage Drittlandtransfers:</strong> Data Privacy Framework
+            (DPF), Standardvertragsklauseln; <strong>Auftragsverarbeitungsvertrag:</strong>
+            {" "}<a href="https://www.cloudflare.com/de-de/cloudflare-customer-dpa/" target="_blank" rel="noopener">https://www.cloudflare.com/de-de/cloudflare-customer-dpa/</a>.
           </li>
         </ul>
       </section>
@@ -560,11 +527,8 @@ const description =
             1 S. 1 lit. f) DSGVO).
           </li>
         </ul>
-
         <p>
-          <strong
-            >Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und Diensten:</strong
-          >
+          <strong>Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und Diensten:</strong>
         </p>
         <ul class="m-elements">
           <li>
@@ -576,40 +540,24 @@ const description =
             Townsend St, San Francisco, CA 94107, USA;
             <strong>Rechtsgrundlagen:</strong> Berechtigte Interessen (Art. 6 Abs.
             1 S. 1 lit. f) DSGVO); <strong>Website:</strong>
-            <a href="https://www.cloudflare.com" target="_blank" rel="noopener"
-              >https://www.cloudflare.com</a
-            >; <strong>Datenschutzerklärung:</strong>
-            <a
-              href="https://www.cloudflare.com/privacypolicy/"
-              target="_blank"
-              rel="noopener">https://www.cloudflare.com/privacypolicy/</a
-            >; <strong>Grundlage Drittlandtransfers:</strong> Data Privacy Framework
+            {" "}<a href="https://www.cloudflare.com" target="_blank" rel="noopener">https://www.cloudflare.com</a>;
+            {" "}<strong>Datenschutzerklärung:</strong>
+            {" "}<a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">https://www.cloudflare.com/privacypolicy/</a>;
+            {" "}<strong>Grundlage Drittlandtransfers:</strong> Data Privacy Framework
             (DPF), Standardvertragsklauseln.
           </li>
           <li>
             <strong>Brevo: </strong>Versand von E-Mails (SMTP) sowie technische
             Bereitstellung der E-Mail-Authentifizierung (DKIM/SPF) für die im
             Impressum genannte Domain; <strong>Dienstanbieter:</strong>
-            Sendinblue GmbH (Brevo), Köpenicker Straße 126, 10179 Berlin, Deutschland
-            (Mutterunternehmen: Sendinblue SAS, Frankreich); <strong
-              >Rechtsgrundlagen:</strong
-            > Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO); <strong
-              >Website:</strong
-            >
-            <a href="https://www.brevo.com/de/" target="_blank" rel="noopener"
-              >https://www.brevo.com/de/</a
-            >; <strong>Datenschutzerklärung:</strong>
-            <a
-              href="https://www.brevo.com/de/legal/privacypolicy/"
-              target="_blank"
-              rel="noopener">https://www.brevo.com/de/legal/privacypolicy/</a
-            >; <strong>Auftragsverarbeitungsvertrag:</strong>
-            <a
-              href="https://www.brevo.com/legal/termsofuse/#annex"
-              target="_blank"
-              rel="noopener"
-              >https://www.brevo.com/legal/termsofuse/#annex</a
-            >.
+            {" "}Sendinblue GmbH (Brevo), Köpenicker Straße 126, 10179 Berlin, Deutschland
+            (Mutterunternehmen: Sendinblue SAS, Frankreich); <strong>Rechtsgrundlagen:</strong>
+            {" "}Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO); <strong>Website:</strong>
+            {" "}<a href="https://www.brevo.com/de/" target="_blank" rel="noopener">https://www.brevo.com/de/</a>;
+            {" "}<strong>Datenschutzerklärung:</strong>
+            {" "}<a href="https://www.brevo.com/de/legal/privacypolicy/" target="_blank" rel="noopener">https://www.brevo.com/de/legal/privacypolicy/</a>;
+            {" "}<strong>Auftragsverarbeitungsvertrag:</strong>
+            {" "}<a href="https://www.brevo.com/legal/termsofuse/#annex" target="_blank" rel="noopener">https://www.brevo.com/legal/termsofuse/#annex</a>.
           </li>
         </ul>
       </section>
@@ -793,59 +741,76 @@ const description =
       </section>
     </article>
 
-    <footer class="footer">
-      <span>© 2026 Dennis Heinz</span>
-      <div>
-        <a href="/impressum/">Impressum</a>
-        <a href="/datenschutz/">Datenschutz</a>
-        <a href="https://github.com/Dennis-H1" rel="me">GitHub</a>
-        <a href="https://www.linkedin.com/in/dennis-heinz-a185241a9/" rel="me"
-          >LinkedIn</a
-        >
-      </div>
-    </footer>
+    <Footer />
   </div>
-</Layout>
+</Base>
 
 <style>
-  .datenschutz :global(section) {
+  .dsgvo section {
     padding: 2.25rem 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .dsgvo section:last-of-type {
+    border-bottom: none;
   }
 
-  .datenschutz :global(h2) {
+  .dsgvo p {
+    font-size: 14.5px;
+    color: var(--muted-foreground);
+    line-height: 1.75;
+    margin-bottom: 0.85rem;
+  }
+  .dsgvo p:last-child {
+    margin-bottom: 0;
+  }
+
+  .dsgvo a {
+    color: var(--foreground);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+  }
+  .dsgvo a:hover {
+    text-decoration-color: var(--foreground);
+  }
+
+  .dsgvo strong {
+    color: var(--foreground);
+    font-weight: 500;
+  }
+
+  .dsgvo h2 {
     font-size: 18px;
     font-weight: 500;
-    letter-spacing: 0;
-    text-transform: none;
-    color: var(--color-text-primary);
+    color: var(--foreground);
     margin-bottom: 1rem;
     scroll-margin-top: 1.5rem;
   }
 
-  .datenschutz :global(h3) {
+  .dsgvo h3 {
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--color-text-tertiary);
+    color: var(--muted-foreground);
     margin: 1.5rem 0 0.75rem;
   }
 
-  .datenschutz :global(ul) {
+  .dsgvo ul {
     list-style: none;
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 0.5rem 0;
     padding: 0;
   }
 
-  .datenschutz :global(ul li) {
+  .dsgvo ul li {
     position: relative;
     padding: 0.45rem 0 0.45rem 1rem;
     font-size: 14.5px;
     line-height: 1.7;
-    color: var(--color-text-secondary);
+    color: var(--muted-foreground);
   }
 
-  .datenschutz :global(ul li::before) {
+  .dsgvo ul li::before {
     content: "";
     position: absolute;
     left: 0;
@@ -853,76 +818,75 @@ const description =
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: var(--color-border-secondary);
+    background: var(--border);
   }
 
-  .datenschutz :global(ul.m-elements li),
-  .datenschutz :global(ul.glossary li) {
+  .dsgvo ul.m-elements li,
+  .dsgvo ul.glossary li {
     padding: 0.85rem 0 0.85rem 1rem;
-    border-top: 0.5px solid var(--color-border-tertiary);
+    border-top: 0.5px solid var(--border);
   }
 
-  .datenschutz :global(ul.m-elements li::before),
-  .datenschutz :global(ul.glossary li::before) {
+  .dsgvo ul.m-elements li::before,
+  .dsgvo ul.glossary li::before {
     top: 1.45rem;
   }
 
-  .datenschutz :global(ul.index) {
+  .dsgvo ul.index {
     columns: 2;
     column-gap: 2rem;
   }
 
-  .datenschutz :global(ul.index li) {
+  .dsgvo ul.index li {
     break-inside: avoid;
     padding: 0.3rem 0 0.3rem 1rem;
   }
 
-  .datenschutz :global(ul.index li::before) {
+  .dsgvo ul.index li::before {
     top: 0.95rem;
   }
 
-  .datenschutz :global(.index-link) {
+  .dsgvo .index-link {
     font-size: 14px;
-    color: var(--color-text-secondary);
+    color: var(--muted-foreground);
     text-decoration: none;
   }
 
-  .datenschutz :global(.index-link:hover) {
-    color: var(--color-text-primary);
+  .dsgvo .index-link:hover {
+    color: var(--foreground);
     text-decoration: underline;
-    text-decoration-color: var(--color-border-secondary);
+    text-decoration-color: var(--border);
     text-underline-offset: 3px;
   }
 
-  .datenschutz :global(.adapted-note) {
-    display: block;
-    width: fit-content;
-    font-style: normal;
+  .dsgvo .adapted-note {
+    display: inline-block;
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-tertiary);
-    border: 0.5px solid var(--color-border-secondary);
-    border-radius: var(--border-radius-md);
+    color: var(--muted-foreground);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
     padding: 2px 8px;
     margin: 0 0 0.6rem;
+    text-decoration: none;
   }
 
-  .datenschutz :global(.seal) {
+  .dsgvo .seal {
     margin-top: 2.5rem;
     padding-top: 1.5rem;
-    border-top: 0.5px solid var(--color-border-tertiary);
+    border-top: 0.5px solid var(--border);
     font-size: 12px;
-    color: var(--color-text-tertiary);
+    color: var(--muted-foreground);
   }
 
-  .datenschutz :global(.seal a) {
-    color: var(--color-text-tertiary);
-    text-decoration-color: var(--color-border-tertiary);
+  .dsgvo .seal a {
+    color: var(--muted-foreground);
+    text-decoration-color: var(--border);
   }
 
   @media (max-width: 480px) {
-    .datenschutz :global(ul.index) {
+    .dsgvo ul.index {
       columns: 1;
     }
   }
