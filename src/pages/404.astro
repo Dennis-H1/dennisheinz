@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Base
+  title="404 - Seite nicht gefunden"
+  description="Diese Seite existiert nicht."
+>
+  <div class="max-w-2xl mx-auto px-6">
+    <Nav />
+
+    <main class="py-16">
+      <p
+        class="text-[11px] tracking-[0.1em] uppercase text-muted-foreground mb-5"
+      >
+        404
+      </p>
+      <h1 class="text-2xl font-semibold tracking-tight mb-4">
+        Seite nicht gefunden
+      </h1>
+      <p class="text-muted-foreground mb-8">
+        Diese Seite existiert nicht oder wurde verschoben.
+      </p>
+      <a
+        href="/"
+        class="text-[15px] font-medium text-muted-foreground hover:text-foreground transition-colors no-underline"
+      >
+        ← Zurück zur Startseite
+      </a>
+    </main>
+
+    <Footer />
+  </div>
+</Base>

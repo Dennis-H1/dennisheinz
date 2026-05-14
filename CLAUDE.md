@@ -30,7 +30,7 @@ The site grows in interactivity by climbing this ladder, never by skipping rungs
 ```astro
 <button id="copy-btn">Copy</button>
 <script>
-  document.getElementById('copy-btn')?.addEventListener('click', () => {
+  document.getElementById("copy-btn")?.addEventListener("click", () => {
     navigator.clipboard.writeText(location.href);
   });
 </script>
@@ -48,8 +48,9 @@ The site grows in interactivity by climbing this ladder, never by skipping rungs
 ---
 // in a .astro component
 ---
+
 <script>
-  import { initMobileNav } from '../scripts/mobile-nav';
+  import { initMobileNav } from "../scripts/mobile-nav";
   initMobileNav();
 </script>
 ```
@@ -71,8 +72,9 @@ export function initMobileNav() {
 
 ```astro
 ---
-import SearchWidget from '../components/islands/SearchWidget.tsx';
+import SearchWidget from "../components/islands/SearchWidget.tsx";
 ---
+
 <SearchWidget client:visible posts={posts} />
 ```
 

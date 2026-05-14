@@ -16,7 +16,11 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Base title={post.data.title} description={post.data.description} ogType="article">
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+>
   <div class="max-w-2xl mx-auto px-6">
     <Nav />
 
@@ -26,9 +30,17 @@ const { Content } = await render(post);
           datetime={post.data.pubDate.toISOString()}
           class="text-[11px] tracking-[0.1em] uppercase text-muted-foreground mb-5 block"
         >
-          {post.data.pubDate.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" })}
+          {
+            post.data.pubDate.toLocaleDateString("de-DE", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
         </time>
-        <h1 class="text-[clamp(2.2rem,5vw,3.4rem)] font-medium leading-[1.1] text-foreground">
+        <h1
+          class="text-[clamp(2.2rem,5vw,3.4rem)] font-medium leading-[1.1] text-foreground"
+        >
           {post.data.title}
         </h1>
       </header>
