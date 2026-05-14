@@ -9,7 +9,7 @@ const description =
   "Notizen von Dennis Heinz über Software, Nebenprojekte und die Dinge, die ich gerade herausfinde.";
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
 ---
 
@@ -18,8 +18,14 @@ const posts = (await getCollection("blog")).sort(
     <Nav />
 
     <header class="pb-10 border-b border-border mb-8">
-      <p class="text-[12px] tracking-[0.1em] uppercase text-muted-foreground mb-6">Blog</p>
-      <h1 class="text-[clamp(2.2rem,5vw,3.4rem)] font-medium leading-[1.1] text-foreground mb-6">
+      <p
+        class="text-[12px] tracking-[0.1em] uppercase text-muted-foreground mb-6"
+      >
+        Blog
+      </p>
+      <h1
+        class="text-[clamp(2.2rem,5vw,3.4rem)] font-medium leading-[1.1] text-foreground mb-6"
+      >
         Notizen
       </h1>
       <p class="text-base text-muted-foreground leading-[1.7] max-w-[480px]">
@@ -50,7 +56,9 @@ const posts = (await getCollection("blog")).sort(
               >
                 <span class="text-[15px] font-medium">{post.data.title}</span>
                 <div class="flex items-center gap-4">
-                  <span class="text-[11px]">{post.data.pubDate.toLocaleDateString("de-DE")}</span>
+                  <span class="text-[11px]">
+                    {post.data.pubDate.toLocaleDateString("de-DE")}
+                  </span>
                   <span class="text-sm">→</span>
                 </div>
               </a>
