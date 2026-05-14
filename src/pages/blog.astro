@@ -1,48 +1,57 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
 
 const title = "Blog - Dennis Heinz";
 const description =
   "Notizen von Dennis Heinz über Software, Nebenprojekte und die Dinge, die ich gerade herausfinde.";
 
-const posts: { title: string; slug: string; date: string; excerpt: string }[] =
-  [];
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
 ---
 
-<Layout title={title} description={description}>
-  <div class="site">
-    <nav class="nav">
-      <a href="/" class="nav-logo">Dennis Heinz</a>
-      <div class="nav-links">
-        <a href="/about/">Über</a>
-        <a href="/blog/">Blog</a>
-      </div>
-    </nav>
+<Base title={title} description={description}>
+  <div class="max-w-2xl mx-auto px-6">
+    <Nav />
 
-    <header class="prose-header">
-      <p class="hero-label">Blog</p>
-      <h1 class="hero-title">Notizen</h1>
-      <p class="hero-sub">
+    <header class="pb-10 border-b border-border mb-8">
+      <p class="text-[12px] tracking-[0.1em] uppercase text-muted-foreground mb-6">Blog</p>
+      <h1 class="text-[clamp(2.2rem,5vw,3.4rem)] font-medium leading-[1.1] text-foreground mb-6">
+        Notizen
+      </h1>
+      <p class="text-base text-muted-foreground leading-[1.7] max-w-[480px]">
         Gedanken zu Software, Nebenprojekten und dem, was ich gerade lerne.
       </p>
     </header>
 
-    <section class="section">
+    <section class="py-8">
       {
         posts.length === 0 ? (
-          <p class="empty">
+          <p class="text-sm text-muted-foreground leading-[1.7]">
             Hier ist noch nichts. Die ersten Beiträge sind in Arbeit.
-            Zwischenzeitlich findest du mich auf
-            <a href="https://github.com/Dennis-H1">GitHub</a>.
+            Zwischenzeitlich findest du mich auf{" "}
+            <a
+              href="https://github.com/Dennis-H1"
+              class="text-foreground underline underline-offset-[3px] decoration-border hover:decoration-foreground transition-colors"
+            >
+              GitHub
+            </a>
+            .
           </p>
         ) : (
-          <div class="list">
+          <div class="flex flex-col">
             {posts.map((post) => (
-              <a class="list-item" href={`/blog/${post.slug}`}>
-                <span class="list-name">{post.title}</span>
-                <div class="list-meta">
-                  <span class="list-tag">{post.date}</span>
-                  <span class="list-arrow">→</span>
+              <a
+                href={`/blog/${post.id}/`}
+                class="flex items-center justify-between py-4 border-t border-border text-muted-foreground hover:text-foreground transition-colors no-underline"
+              >
+                <span class="text-[15px] font-medium">{post.data.title}</span>
+                <div class="flex items-center gap-4">
+                  <span class="text-[11px]">{post.data.pubDate.toLocaleDateString("de-DE")}</span>
+                  <span class="text-sm">→</span>
                 </div>
               </a>
             ))}
@@ -51,16 +60,6 @@ const posts: { title: string; slug: string; date: string; excerpt: string }[] =
       }
     </section>
 
-    <footer class="footer">
-      <span>© 2026 Dennis Heinz</span>
-      <div>
-        <a href="/impressum/">Impressum</a>
-        <a href="/datenschutz/">Datenschutz</a>
-        <a href="https://github.com/Dennis-H1" rel="me">GitHub</a>
-        <a href="https://www.linkedin.com/in/dennis-heinz-a185241a9/" rel="me"
-          >LinkedIn</a
-        >
-      </div>
-    </footer>
+    <Footer />
   </div>
-</Layout>
+</Base>

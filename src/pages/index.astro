@@ -1,53 +1,41 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Hero from "../components/sections/Hero.astro";
 
 const description =
   "Dennis Heinz – Softwareentwickler aus dem Münsterland. Ich schreibe über Software, Nebenprojekte und die Dinge, die ich gerade herausfinde.";
 ---
 
-<Layout title="Dennis Heinz – Softwareentwickler" description={description}>
-  <div class="site">
-    <nav class="nav">
-      <a href="/" class="nav-logo">Dennis Heinz</a>
-      <div class="nav-links">
-        <a href="/about/">Über</a>
-        <a href="/blog/">Blog</a>
-      </div>
-    </nav>
+<Base title="Dennis Heinz – Softwareentwickler" description={description}>
+  <div class="max-w-2xl mx-auto px-6">
+    <Nav />
 
-    <section class="hero">
-      <p class="hero-label">Softwareentwickler · Münsterland, DE</p>
-      <h1 class="hero-title">Dennis Heinz</h1>
-      <p class="hero-sub">
-        Entwickler. Macher. Ich schreibe über Software, Nebenprojekte und die
-        Dinge, die ich gerade herausfinde.
+    <Hero />
+
+    <div class="py-8 border-b border-border">
+      <p class="text-[11px] tracking-[0.1em] uppercase text-muted-foreground mb-5">
+        Hier entlang
       </p>
-    </section>
-
-    <div class="section">
-      <p class="section-label" style="margin-bottom: 1.25rem;">Hier entlang</p>
-      <div class="list">
-        <a class="list-item" href="/about/">
-          <span class="list-name">Über mich</span>
-          <span class="list-arrow">→</span>
+      <div class="flex flex-col">
+        <a
+          href="/about/"
+          class="flex items-center justify-between py-4 border-t border-border text-muted-foreground hover:text-foreground transition-colors no-underline"
+        >
+          <span class="text-[15px] font-medium">Über mich</span>
+          <span class="text-sm">→</span>
         </a>
-        <a class="list-item" href="/blog/">
-          <span class="list-name">Blog</span>
-          <span class="list-arrow">→</span>
+        <a
+          href="/blog/"
+          class="flex items-center justify-between py-4 border-t border-border text-muted-foreground hover:text-foreground transition-colors no-underline"
+        >
+          <span class="text-[15px] font-medium">Blog</span>
+          <span class="text-sm">→</span>
         </a>
       </div>
     </div>
 
-    <footer class="footer">
-      <span>© 2026 Dennis Heinz</span>
-      <div>
-        <a href="/impressum/">Impressum</a>
-        <a href="/datenschutz/">Datenschutz</a>
-        <a href="https://github.com/Dennis-H1" rel="me">GitHub</a>
-        <a href="https://www.linkedin.com/in/dennis-heinz-a185241a9/" rel="me"
-          >LinkedIn</a
-        >
-      </div>
-    </footer>
+    <Footer />
   </div>
-</Layout>
+</Base>

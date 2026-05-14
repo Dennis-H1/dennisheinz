@@ -1,34 +1,48 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
 
 const title = "Impressum - Dennis Heinz";
 const description =
   "Impressum und Anbieterkennzeichnung gemäß § 5 DDG für dennisheinz.com.";
 ---
 
-<Layout title={title} description={description}>
-  <div class="site">
-    <nav class="nav">
-      <a href="/" class="nav-logo">Dennis Heinz</a>
-      <div class="nav-links">
-        <a href="/about/">Über</a>
-        <a href="/blog/">Blog</a>
-      </div>
-    </nav>
+<Base title={title} description={description}>
+  <div class="max-w-2xl mx-auto px-6">
+    <Nav />
 
-    <article class="prose impressum">
-      <header class="prose-header">
-        <p class="hero-label">Rechtliches</p>
-        <h1 class="hero-title">Impressum</h1>
+    <article>
+      <header class="pb-10 border-b border-border">
+        <p
+          class="text-[12px] tracking-[0.1em] uppercase text-muted-foreground mb-5"
+        >
+          Rechtliches
+        </p>
+        <h1
+          class="text-[clamp(2.2rem,5vw,3.4rem)] font-medium leading-[1.1] text-foreground"
+        >
+          Impressum
+        </h1>
       </header>
 
-      <section>
-        <h2>Angaben gemäß § 5 DDG</h2>
-        <dl class="legal-fields">
-          <dt>Name</dt>
-          <dd>Dennis Heinz</dd>
-          <dt>Anschrift</dt>
-          <dd>
+      <section class="py-8 border-b border-border">
+        <h2
+          class="text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground mb-5"
+        >
+          Angaben gemäß § 5 DDG
+        </h2>
+        <dl
+          class="grid grid-cols-[8rem_1fr] gap-x-6 gap-y-3 text-[15px] leading-[1.65] max-sm:grid-cols-1"
+        >
+          <dt class="text-[13px] text-muted-foreground pt-[2px] max-sm:pt-3">
+            Name
+          </dt>
+          <dd class="text-foreground">Dennis Heinz</dd>
+          <dt class="text-[13px] text-muted-foreground pt-[2px] max-sm:pt-3">
+            Anschrift
+          </dt>
+          <dd class="text-foreground">
             Eltropweg 30<br />
             48155 Münster<br />
             Deutschland
@@ -36,29 +50,57 @@ const description =
         </dl>
       </section>
 
-      <section>
-        <h2>Kontakt</h2>
-        <dl class="legal-fields">
-          <dt>Telefon</dt>
-          <dd>
-            <a href="tel:+4916367860680">+49 (0) 163 / 678 60 68</a>
-          </dd>
-          <dt>E-Mail</dt>
-          <dd>
-            <a href="mailto:dennis@dennisheinz.com"
-              >&#100;ennis&#64;&#100;ennisheinz&#46;com</a
+      <section class="py-8 border-b border-border">
+        <h2
+          class="text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground mb-5"
+        >
+          Kontakt
+        </h2>
+        <dl
+          class="grid grid-cols-[8rem_1fr] gap-x-6 gap-y-3 text-[15px] leading-[1.65] max-sm:grid-cols-1"
+        >
+          <dt class="text-[13px] text-muted-foreground pt-[2px] max-sm:pt-3">
+            Telefon
+          </dt>
+          <dd class="text-foreground">
+            <a
+              href="tel:+4916367860680"
+              class="underline underline-offset-[3px] decoration-border hover:decoration-foreground transition-colors"
             >
+              +49 (0) 163 / 678 60 68
+            </a>
+          </dd>
+          <dt class="text-[13px] text-muted-foreground pt-[2px] max-sm:pt-3">
+            E-Mail
+          </dt>
+          <dd class="text-foreground">
+            <a
+              href="mailto:dennis@dennisheinz.com"
+              class="underline underline-offset-[3px] decoration-border hover:decoration-foreground transition-colors"
+            >
+              &#100;ennis&#64;&#100;ennisheinz&#46;com
+            </a>
           </dd>
         </dl>
       </section>
 
-      <section>
-        <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
-        <dl class="legal-fields">
-          <dt>Name</dt>
-          <dd>Dennis Heinz</dd>
-          <dt>Anschrift</dt>
-          <dd>
+      <section class="py-8">
+        <h2
+          class="text-[11px] font-medium tracking-[0.1em] uppercase text-muted-foreground mb-5"
+        >
+          Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
+        </h2>
+        <dl
+          class="grid grid-cols-[8rem_1fr] gap-x-6 gap-y-3 text-[15px] leading-[1.65] max-sm:grid-cols-1"
+        >
+          <dt class="text-[13px] text-muted-foreground pt-[2px] max-sm:pt-3">
+            Name
+          </dt>
+          <dd class="text-foreground">Dennis Heinz</dd>
+          <dt class="text-[13px] text-muted-foreground pt-[2px] max-sm:pt-3">
+            Anschrift
+          </dt>
+          <dd class="text-foreground">
             Eltropweg 30<br />
             48155 Münster<br />
             Deutschland
@@ -67,74 +109,6 @@ const description =
       </section>
     </article>
 
-    <footer class="footer">
-      <span>© 2026 Dennis Heinz</span>
-      <div>
-        <a href="/impressum/">Impressum</a>
-        <a href="/datenschutz/">Datenschutz</a>
-        <a href="https://github.com/Dennis-H1" rel="me">GitHub</a>
-        <a href="https://www.linkedin.com/in/dennis-heinz-a185241a9/" rel="me"
-          >LinkedIn</a
-        >
-      </div>
-    </footer>
+    <Footer />
   </div>
-</Layout>
-
-<style>
-  .impressum :global(section) {
-    padding: 2rem 0;
-  }
-
-  .impressum :global(h2) {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-tertiary);
-    margin-bottom: 1.25rem;
-  }
-
-  .legal-fields {
-    display: grid;
-    grid-template-columns: 8rem 1fr;
-    column-gap: 1.5rem;
-    row-gap: 0.85rem;
-    font-size: 15px;
-    line-height: 1.65;
-  }
-
-  .legal-fields dt {
-    color: var(--color-text-tertiary);
-    font-size: 13px;
-    padding-top: 2px;
-  }
-
-  .legal-fields dd {
-    color: var(--color-text-primary);
-  }
-
-  .legal-fields dd a {
-    color: var(--color-text-primary);
-    text-decoration: underline;
-    text-decoration-color: var(--color-border-secondary);
-    text-underline-offset: 3px;
-  }
-
-  .legal-fields dd a:hover {
-    text-decoration-color: var(--color-text-primary);
-  }
-
-  @media (max-width: 480px) {
-    .legal-fields {
-      grid-template-columns: 1fr;
-      row-gap: 0.25rem;
-    }
-    .legal-fields dt {
-      padding-top: 0.75rem;
-    }
-    .legal-fields dt:first-of-type {
-      padding-top: 0;
-    }
-  }
-</style>
+</Base>

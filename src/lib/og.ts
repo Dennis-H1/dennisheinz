@@ -1,19 +1,30 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { ReactNode } from "react";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 
 const fontsDir = path.resolve(process.cwd(), "src/assets/fonts");
 
-let fontsPromise: Promise<{ name: string; data: Buffer; weight: 400 | 700; style: "normal" }[]> | null = null;
+let fontsPromise: Promise<
+  { name: string; data: Buffer; weight: 400 | 700; style: "normal" }[]
+> | null = null;
 const loadFonts = () =>
   (fontsPromise ??= Promise.all([
     fs.readFile(path.join(fontsDir, "Inter-Regular.ttf")),
     fs.readFile(path.join(fontsDir, "Inter-Bold.ttf")),
   ]).then(([regular, bold]) => [
-    { name: "Inter", data: regular, weight: 400 as const, style: "normal" as const },
-    { name: "Inter", data: bold, weight: 700 as const, style: "normal" as const },
+    {
+      name: "Inter",
+      data: regular,
+      weight: 400 as const,
+      style: "normal" as const,
+    },
+    {
+      name: "Inter",
+      data: bold,
+      weight: 700 as const,
+      style: "normal" as const,
+    },
   ]));
 
 export interface OgImageInput {
@@ -22,7 +33,11 @@ export interface OgImageInput {
   footer?: string;
 }
 
-export async function renderOgImage({ title, subtitle, footer }: OgImageInput): Promise<Buffer> {
+export async function renderOgImage({
+  title,
+  subtitle,
+  footer,
+}: OgImageInput): Promise<Buffer> {
   const fonts = await loadFonts();
 
   const node = {
@@ -104,7 +119,7 @@ export async function renderOgImage({ title, subtitle, footer }: OgImageInput): 
     },
   };
 
-  const svg = await satori(node as unknown as ReactNode, {
+  const svg = await satori(node as any, {
     width: 1200,
     height: 630,
     fonts,

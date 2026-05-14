@@ -10,13 +10,15 @@ const pages: OgPage[] = [
   {
     slug: "de",
     title: "Dennis Heinz",
-    subtitle: "Softwareentwickler aus dem Münsterland. Webanwendungen mit PHP, React und TypeScript.",
+    subtitle:
+      "Softwareentwickler aus dem Münsterland. Webanwendungen mit PHP, React und TypeScript.",
     footer: "Software Developer · Münsterland",
   },
   {
     slug: "en",
     title: "Dennis Heinz",
-    subtitle: "Software developer from the Münsterland region. Web applications with PHP, React and TypeScript.",
+    subtitle:
+      "Software developer from the Münsterland region. Web applications with PHP, React and TypeScript.",
     footer: "Software Developer · Münsterland",
   },
 ];
