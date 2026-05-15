@@ -131,6 +131,56 @@ src/
 | Stateful widget       | `components/islands/*.tsx`       | Preact + `client:*` | ~3 KB + your code |
 | OG generation (build) | `src/pages/og/`, `src/lib/og.ts` | React + Satori      | 0 bytes (server)  |
 
+## UI Primitives (`components/ui/`)
+
+Reusable static components follow a strict pattern so the design system stays coherent and AI-generated additions match what's already there.
+
+### The pattern
+
+```astro
+---
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const buttonVariants = cva(
+  "base classes shared by every variant",
+  {
+    variants: {
+      variant: { default: "...", outline: "...", ghost: "..." },
+      size: { sm: "...", md: "...", lg: "..." },
+    },
+    defaultVariants: { variant: "default", size: "md" },
+  },
+);
+
+interface Props extends VariantProps<typeof buttonVariants> {
+  class?: string;
+}
+
+const { variant, size, class: className } = Astro.props;
+---
+
+<button class={cn(buttonVariants({ variant, size }), className)}>
+  <slot />
+</button>
+```
+
+### Rules
+
+- **CVA + `cn()` is the only way to do variants.** Don't write scoped `<style>` blocks for color/spacing variants — they bypass the token system and can't be type-checked.
+- **Always extend `VariantProps<typeof xVariants>`.** This is the whole reason CVA exists here. Compile-time errors beat runtime debugging.
+- **Always accept `class?: string`** and merge it with `cn()` last so callers can override.
+- **Always set `defaultVariants`** for every variant key. No undefined-prop branches.
+- **Colors must come from semantic tokens** (`bg-primary`, `text-foreground`, `border-border`, …). These resolve to CSS variables defined in `src/styles/global.css` and flip automatically in dark mode.
+  - Never inline `oklch(...)`, `#hex`, or raw Tailwind palette utilities like `bg-blue-500`. If you need a new color, add a `--token` to `global.css` and wire it through `@theme inline` first.
+- **Scoped `<style>` is still fine** for non-token CSS that has nothing to do with the design system: one-off animations, `:has()` tricks, complex layout that would be ugly as utilities. Mix freely with CVA — they don't conflict.
+
+### Adding a new primitive
+
+1. Create `src/components/ui/Foo.astro` following the pattern above.
+2. If you need a new color/spacing/radius token, add it to `:root` and the dark `:root` in `global.css`, then expose it under `@theme inline`.
+3. If a variant feels like it wants conditional logic (e.g. `disabled` styling that depends on another prop), reach for `compoundVariants` in the CVA config — don't fall back to ternaries in the template.
+
 ## Blog Posts
 
 Stored in `src/content/blog/*.md`. Required frontmatter:
