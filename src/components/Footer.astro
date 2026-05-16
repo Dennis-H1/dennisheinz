@@ -1,20 +1,28 @@
 ---
+import { strings, type Locale } from "../i18n/strings";
 
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "de" } = Astro.props;
+const t = strings[lang];
 ---
 
 <footer
-  class="flex items-center justify-between py-10 mt-8 text-[13px] text-muted-foreground"
+  class="flex flex-wrap items-center justify-between gap-4 py-10 mt-8 text-[13px] text-muted-foreground"
 >
-  <span>© 2026 Dennis Heinz</span>
-  <div class="flex gap-5">
+  <span>{t.footer.copyright}</span>
+  <div class="flex flex-wrap gap-5">
     <a
-      href="/impressum/"
-      class="hover:text-foreground transition-colors no-underline">Impressum</a
+      href={t.routes.legal}
+      class="hover:text-foreground transition-colors no-underline"
+      >{t.footer.impressum}</a
     >
     <a
-      href="/datenschutz/"
+      href={t.routes.privacy}
       class="hover:text-foreground transition-colors no-underline"
-      >Datenschutz</a
+      >{t.footer.datenschutz}</a
     >
     <a
       href="https://github.com/Dennis-H1"

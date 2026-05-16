@@ -1,14 +1,75 @@
-<section class="pb-16">
-  <p class="text-[11px] tracking-[0.1em] uppercase text-muted-foreground mb-6">
-    Softwareentwickler · Münsterland, DE
-  </p>
+---
+import { ChevronDown } from "lucide-react";
+import { strings, type Locale } from "@/i18n/strings";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "de" } = Astro.props;
+const t = strings[lang];
+const wordsJson = JSON.stringify(t.hero.cyclerWords);
+---
+
+<section
+  class="hero-section relative flex flex-col justify-center pb-24"
+  data-reveal
+  data-reveal-stagger
+>
+  <p class="heading-eyebrow mb-6">{t.hero.eyebrow}</p>
   <h1
-    class="text-[clamp(2.2rem,5vw,3.4rem)] font-medium leading-[1.1] text-foreground mb-6 max-w-[520px]"
+    class="hero-name mb-6 max-w-[800px] font-medium leading-[1.02] tracking-tight"
   >
-    Dennis Heinz
+    {t.hero.name}
   </h1>
-  <p class="text-base text-muted-foreground leading-[1.7] max-w-[480px]">
-    Entwickler. Ich schreibe über Software, Nebenprojekte und die Dinge, die ich
-    mich gerade interessieren.
+  <p
+    class="text-lg md:text-xl text-muted-foreground leading-[1.6] max-w-[560px]"
+  >
+    <span
+      class="word-cycle text-foreground-strong"
+      data-word-cycler
+      data-words={wordsJson}
+      data-interval="2200">{t.hero.cyclerWords[0]}</span
+    >{" "}
+    {t.hero.subtitlePost}
   </p>
+  <div class="flex gap-6 mt-7 text-[14px]">
+    <a
+      href="https://github.com/Dennis-H1"
+      rel="me"
+      class="text-foreground hover:text-primary transition-colors no-underline border-b border-border hover:border-primary pb-0.5"
+      >{t.hero.socialGithub}</a
+    >
+    <a
+      href="https://www.linkedin.com/in/dennis-heinz-a185241a9/"
+      rel="me"
+      class="text-foreground hover:text-primary transition-colors no-underline border-b border-border hover:border-primary pb-0.5"
+      >{t.hero.socialLinkedin}</a
+    >
+  </div>
+
+  <a
+    href="#projects"
+    class="absolute bottom-6 left-0 inline-flex items-center gap-2 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors no-underline scroll-cue"
+    aria-label={t.hero.scrollCue}
+  >
+    <ChevronDown size={14} aria-hidden="true" />
+    <span>{t.hero.scrollCue}</span>
+  </a>
 </section>
+
+<style>
+  .hero-section {
+    /* Viewport minus nav block (py-5 + brand line + mb-16). */
+    min-height: calc(100svh - 9rem);
+  }
+  .hero-name {
+    font-size: clamp(3rem, 9vw, 6rem);
+    color: var(--foreground-strong);
+  }
+</style>
+
+<script>
+  import { initWordCycler } from "@/scripts/word-cycler";
+  initWordCycler();
+</script>

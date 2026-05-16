@@ -5,10 +5,10 @@ import Footer from "@/components/Footer.astro";
 import SectionLabel from "@/components/ui/SectionLabel.astro";
 import { strings } from "@/i18n/strings";
 
-const lang = "de" as const;
+const lang = "en" as const;
 const t = strings[lang];
 
-const alternates = { de: t.routes.home, en: strings.en.routes.home };
+const alternates = { de: strings.de.routes.home, en: t.routes.home };
 ---
 
 <Base

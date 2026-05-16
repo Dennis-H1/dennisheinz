@@ -1,0 +1,113 @@
+---
+import Base from "@/layouts/Base.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import Tag from "@/components/ui/Tag.astro";
+import { strings } from "@/i18n/strings";
+import { getPosts, slugOf } from "@/lib/blog";
+
+const lang = "en" as const;
+const t = strings[lang];
+
+const title = "Blog — Dennis Heinz";
+const description =
+  "Notes by Dennis Heinz about software, side projects and the things I'm currently figuring out.";
+
+const posts = await getPosts(lang);
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+const estimateReadTime = (text: string) =>
+  Math.max(1, Math.round(text.split(/\s+/).length / 200));
+---
+
+<Base title={title} description={description} lang={lang}>
+  <div class="max-w-4xl mx-auto px-6">
+    <Nav lang={lang} />
+
+    <article>
+      <header class="pt-4 pb-12 md:pb-16" data-reveal data-reveal-stagger>
+        <SectionLabel class="mb-6">{t.writing.label}</SectionLabel>
+        <h1 class="blog-heading mb-8 tracking-tight">Notes</h1>
+        <p
+          class="text-lg md:text-xl text-muted-foreground leading-[1.6] max-w-[60ch]"
+        >
+          Thoughts on software, side projects and whatever I'm currently
+          learning.
+        </p>
+      </header>
+
+      {
+        posts.length === 0 ? (
+          <section class="py-12 border-t border-border" data-reveal>
+            <p class="text-[15px] text-muted-foreground leading-[1.7] max-w-[60ch]">
+              Nothing here yet. The first posts are in the oven. In the
+              meantime, find me on{" "}
+              <a href="https://github.com/Dennis-H1" class="link">
+                GitHub
+              </a>
+              .
+            </p>
+          </section>
+        ) : (
+          <div class="flex flex-col" data-reveal data-reveal-stagger>
+            {posts.map((post) => (
+              <a
+                href={`${t.routes.blog}${slugOf(post)}/`}
+                class="post-row group grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-3 md:gap-8 items-baseline py-7 border-t border-border no-underline transition-colors hover:bg-accent/40"
+              >
+                <time
+                  datetime={post.data.pubDate.toISOString()}
+                  class="text-[11px] font-mono tracking-wider text-muted-foreground tabular-nums uppercase md:pt-1"
+                >
+                  {formatDate(post.data.pubDate)}
+                </time>
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-3">
+                    {post.data.tag && <Tag size="sm">{post.data.tag}</Tag>}
+                    <h2 class="text-xl md:text-2xl font-medium text-foreground-strong leading-tight group-hover:text-primary transition-colors">
+                      {post.data.title}
+                    </h2>
+                  </div>
+                  <p class="text-[15px] text-muted-foreground leading-[1.6] max-w-[60ch]">
+                    {post.data.description}
+                  </p>
+                  <span class="text-[11px] text-muted-foreground tabular-nums">
+                    {t.writing.readTime(
+                      estimateReadTime(post.data.description),
+                    )}
+                  </span>
+                </div>
+                <span class="text-[13px] text-muted-foreground group-hover:text-foreground transition-colors hidden md:inline self-center">
+                  →
+                </span>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </article>
+
+    <Footer lang={lang} />
+  </div>
+
+  <style>
+    .blog-heading {
+      font-size: clamp(2.4rem, 7vw, 4.25rem);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--foreground-strong);
+    }
+  </style>
+
+  <script>
+    import { initReveal } from "@/scripts/reveal";
+    initReveal();
+  </script>
+</Base>

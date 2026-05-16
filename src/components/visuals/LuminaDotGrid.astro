@@ -1,0 +1,56 @@
+---
+import { strings, type Locale } from "@/i18n/strings";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "de" } = Astro.props;
+
+const labels =
+  lang === "de"
+    ? ["Wöchentliches Review", "Agent-Lauf", "Captures", "Fitness-Log"]
+    : ["weekly review", "agent run", "captures", "fitness log"];
+
+const positions = [
+  { top: "18%", left: "12%" },
+  { top: "28%", left: "58%" },
+  { top: "62%", left: "20%" },
+  { top: "72%", left: "62%" },
+];
+---
+
+<div class="lumina-grid absolute inset-0">
+  <div class="lumina-dots absolute inset-0"></div>
+  <div class="absolute inset-0">
+    {
+      labels.map((label, i) => (
+        <span
+          class="lumina-node absolute inline-flex items-center rounded-full border border-border bg-background/95 px-2.5 py-1 text-[10px] font-medium text-foreground shadow-sm backdrop-blur-sm whitespace-nowrap"
+          style={`top: ${positions[i]!.top}; left: ${positions[i]!.left};`}
+        >
+          {label}
+        </span>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .lumina-grid {
+    background: var(--card);
+  }
+  .lumina-dots {
+    background-image: radial-gradient(
+      circle,
+      var(--border) 1px,
+      transparent 1px
+    );
+    background-size: 18px 18px;
+    background-position: 0 0;
+    opacity: 0.6;
+  }
+  .lumina-node {
+    transform: translate(-4px, -4px);
+  }
+</style>

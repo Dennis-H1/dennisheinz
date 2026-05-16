@@ -1,29 +1,53 @@
 ---
 import { Sun, Moon } from "lucide-react";
+import { strings, type Locale } from "../i18n/strings";
+import LangSwitcher from "./LangSwitcher.astro";
+
+interface Props {
+  lang?: Locale;
+  alternates?: Partial<Record<Locale, string>>;
+}
+
+const { lang = "de", alternates } = Astro.props;
+const t = strings[lang];
+
+const onHome = Astro.url.pathname === t.routes.home;
+const projectsHref = onHome ? "#projects" : `${t.routes.home}#projects`;
+const writingHref = onHome ? "#writing" : t.routes.blog;
+const aboutHref = onHome ? "#about" : t.routes.about;
 ---
 
-<nav class="flex items-center justify-between py-5 mb-16">
+<nav
+  class="flex items-center justify-between py-5 mb-16 nav-fade"
+  data-nav-fade
+>
   <a
-    href="/"
+    href={t.routes.home}
     class="text-sm font-medium text-foreground tracking-wider no-underline hover:opacity-80 transition-opacity"
   >
-    Dennis Heinz
+    {t.nav.home}
   </a>
-  <div class="flex items-center gap-8">
+  <div class="flex items-center gap-6 sm:gap-8">
     <a
-      href="/about/"
-      class="text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline"
-      >Über</a
+      href={projectsHref}
+      class="text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline hidden sm:inline"
+      >{t.nav.projects}</a
     >
     <a
-      href="/blog/"
-      class="text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline"
-      >Blog</a
+      href={writingHref}
+      class="text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline hidden sm:inline"
+      >{t.nav.writing}</a
     >
+    <a
+      href={aboutHref}
+      class="text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline"
+      >{t.nav.about}</a
+    >
+    <LangSwitcher lang={lang} alternates={alternates} />
     <button
       id="theme-toggle"
-      aria-label="Theme wechseln"
-      class="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+      aria-label={t.nav.themeToggleAria}
+      class="inline-flex items-center justify-center h-5 w-5 leading-none text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
     >
       <Sun data-icon="sun" size={16} aria-hidden="true" />
       <Moon data-icon="moon" size={16} aria-hidden="true" />
@@ -33,5 +57,7 @@ import { Sun, Moon } from "lucide-react";
 
 <script>
   import { initThemeToggle } from "../scripts/theme";
+  import { initNavFade } from "../scripts/nav-fade";
   initThemeToggle();
+  initNavFade();
 </script>

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { strings, type Locale } from "../i18n/strings";
 
 interface Props {
   title: string;
@@ -7,6 +8,7 @@ interface Props {
   ogImage?: string;
   ogImageAlt?: string;
   ogType?: "website" | "article";
+  lang?: Locale;
 }
 
 const {
@@ -15,9 +17,10 @@ const {
   ogImage,
   ogImageAlt,
   ogType = "website",
+  lang = "de",
 } = Astro.props;
 
-const currentLocale = "de" as const;
+const t = strings[lang];
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
@@ -25,18 +28,15 @@ const siteUrl = Astro.site!.toString().replace(/\/$/, "");
 const personId = `${siteUrl}/#person`;
 const serviceId = `${siteUrl}/#service`;
 const websiteId = `${siteUrl}/#website`;
-const ogImageId = `${siteUrl}/og/${currentLocale}.png#image`;
+const ogImageId = `${siteUrl}/og/${lang}.png#image`;
 
-const personDescription =
-  "Hi, ich bin Dennis, Softwareentwickler aus dem Münsterland. Ich entwickle leidenschaftlich gerne Webanwendungen mit PHP, React und TypeScript und beschäftige mich nebenbei mit Machine Learning. Auf dieser Seite stelle ich meine Projekte vor – schreib mir gerne über LinkedIn oder per E-Mail.";
-
-const serviceDescription =
-  "Webentwicklung mit PHP, React, TypeScript und Datenbanken (SQL & NoSQL). Full-Stack von Frontend bis Backend.";
-
-const metaDescription = description ?? personDescription;
-const ogImageUrl = new URL(ogImage ?? `/og/${currentLocale}.png`, Astro.site);
+const metaDescription = description ?? t.person.description;
+const ogImageUrl = new URL(ogImage ?? `/og/${lang}.png`, Astro.site);
 const ogImageAltText =
-  ogImageAlt ?? "Dennis Heinz – Softwareentwickler aus dem Münsterland";
+  ogImageAlt ??
+  (lang === "de"
+    ? "Dennis Heinz – Softwareentwickler aus dem Münsterland"
+    : "Dennis Heinz – software developer from the Münsterland region");
 const siteName = "Dennis Heinz";
 
 const structuredData = {
@@ -47,8 +47,8 @@ const structuredData = {
       "@id": websiteId,
       url: siteUrl,
       name: siteName,
-      description: personDescription,
-      inLanguage: currentLocale,
+      description: t.person.description,
+      inLanguage: lang,
       publisher: { "@id": personId },
     },
     {
@@ -65,8 +65,8 @@ const structuredData = {
       "@type": "Person",
       "@id": personId,
       name: "Dennis Heinz",
-      jobTitle: "Softwareentwickler",
-      description: personDescription,
+      jobTitle: t.person.jobTitle,
+      description: t.person.description,
       url: siteUrl,
       image: { "@id": ogImageId },
       email: "mailto:dennis@dennisheinz.com",
@@ -97,8 +97,8 @@ const structuredData = {
     {
       "@type": "ProfessionalService",
       "@id": serviceId,
-      name: "Dennis Heinz – Webentwicklung",
-      description: serviceDescription,
+      name: t.service.name,
+      description: t.service.description,
       url: siteUrl,
       email: "mailto:dennis@dennisheinz.com",
       provider: { "@id": personId },
@@ -108,7 +108,7 @@ const structuredData = {
         { "@type": "City", name: "Münster" },
         { "@type": "Country", name: "Deutschland" },
       ],
-      serviceType: ["Webentwicklung", "Full-Stack-Entwicklung"],
+      serviceType: t.service.serviceType,
       knowsAbout: [
         "PHP",
         "React",
@@ -127,11 +127,15 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
   "\\u003c",
 );
 
-const ogLocale = "de_DE";
+const alternates: { hreflang: string; href: string }[] = [
+  { hreflang: "de", href: new URL("/de/", Astro.site).toString() },
+  { hreflang: "en", href: new URL("/en/", Astro.site).toString() },
+  { hreflang: "x-default", href: new URL("/de/", Astro.site).toString() },
+];
 ---
 
 <!doctype html>
-<html lang={currentLocale}>
+<html lang={t.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -139,13 +143,18 @@ const ogLocale = "de_DE";
     <meta name="description" content={metaDescription} />
 
     <link rel="canonical" href={canonical} />
+    {
+      alternates.map((a) => (
+        <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+      ))
+    }
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale" content={t.ogLocale} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />

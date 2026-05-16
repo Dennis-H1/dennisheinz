@@ -1,0 +1,67 @@
+---
+import { Languages, Check } from "lucide-react";
+import { strings, type Locale } from "@/i18n/strings";
+import Popover from "@/components/ui/Popover.astro";
+
+interface Props {
+  lang: Locale;
+  // Per-locale URL for the alternate version of this page. If a locale's URL
+  // is missing, the LangSwitcher falls back to that locale's homepage.
+  alternates?: Partial<Record<Locale, string>>;
+}
+
+const { lang, alternates } = Astro.props;
+const t = strings[lang];
+
+// Default: swap locale prefix in the current URL — works for symmetric pages.
+const pathname = Astro.url.pathname;
+const stripped = pathname.replace(/^\/(de|en)(?=\/|$)/, "") || "/";
+
+function defaultHref(target: Locale): string {
+  return `/${target}${stripped === "/" ? "/" : stripped}`;
+}
+
+const targets: { code: Locale; label: string; href: string }[] = [
+  {
+    code: "de",
+    label: strings.de.nav.langName,
+    href: alternates?.de ?? defaultHref("de"),
+  },
+  {
+    code: "en",
+    label: strings.en.nav.langName,
+    href: alternates?.en ?? defaultHref("en"),
+  },
+];
+---
+
+<Popover align="right" ariaLabel={t.nav.langSwitchAria}>
+  <Languages slot="trigger" size={16} aria-hidden="true" />
+  {
+    targets.map((l) => {
+      const active = l.code === lang;
+      return (
+        <a
+          href={l.href}
+          role="menuitem"
+          aria-current={active ? "true" : undefined}
+          class:list={[
+            "flex items-center justify-between gap-4 px-3 py-1.5 text-[13px] no-underline transition-colors",
+            active
+              ? "text-foreground"
+              : "text-muted-foreground hover:text-foreground hover:bg-accent/60",
+          ]}
+        >
+          <span>{l.label}</span>
+          {active ? (
+            <Check size={14} aria-hidden="true" class="text-primary" />
+          ) : (
+            <span class="text-[10px] font-mono uppercase text-muted-foreground tabular-nums">
+              {l.code}
+            </span>
+          )}
+        </a>
+      );
+    })
+  }
+</Popover>

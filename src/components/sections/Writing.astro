@@ -1,0 +1,155 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { strings, type Locale } from "@/i18n/strings";
+import { localeOf, slugOf } from "@/lib/blog";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import PostCard from "@/components/ui/PostCard.astro";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "de" } = Astro.props;
+const t = strings[lang];
+
+type Post = CollectionEntry<"blog">;
+
+const posts: Post[] = (await getCollection("blog"))
+  .filter((p) => localeOf(p) === lang)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+interface DisplayPost {
+  href: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  tag?: string;
+  readTime?: string;
+}
+
+const dateLocale = lang === "de" ? "de-DE" : "en-US";
+const formatDate = (d: Date) =>
+  d.toLocaleDateString(dateLocale, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+const estimateReadTime = (text: string) =>
+  Math.max(1, Math.round(text.split(/\s+/).length / 200));
+
+const display: DisplayPost[] =
+  posts.length > 0
+    ? posts.slice(0, 5).map((p) => ({
+        href: `/${lang}/blog/${slugOf(p)}/`,
+        title: p.data.title,
+        excerpt: p.data.description,
+        date: formatDate(p.data.pubDate),
+        tag: p.data.tag,
+        readTime: t.writing.readTime(
+          estimateReadTime(p.body ?? p.data.description),
+        ),
+      }))
+    : [
+        {
+          href: "/blog/",
+          title:
+            lang === "de"
+              ? "Was ich gerade lerne"
+              : "What I'm learning right now",
+          excerpt:
+            lang === "de"
+              ? "Eine kurze Notiz zu den Dingen, die mich diese Woche beschäftigen – von KI-Agenten bis zu nebenläufigen Mustern in Kotlin."
+              : "A short note on what's keeping me busy this week – from AI agents to concurrency patterns in Kotlin.",
+          date: formatDate(new Date()),
+          tag: lang === "de" ? "Notiz" : "Note",
+          readTime: t.writing.readTime(4),
+        },
+        {
+          href: "/blog/",
+          title:
+            lang === "de"
+              ? "Tailwind v4 in echten Projekten"
+              : "Tailwind v4 in real projects",
+          date: formatDate(new Date()),
+          excerpt: "",
+          tag: lang === "de" ? "Tools" : "Tools",
+        },
+        {
+          href: "/blog/",
+          title:
+            lang === "de"
+              ? "Wandern als Debug-Strategie"
+              : "Hiking as a debug strategy",
+          date: formatDate(new Date()),
+          excerpt: "",
+          tag: lang === "de" ? "Persönlich" : "Personal",
+        },
+        {
+          href: "/blog/",
+          title:
+            lang === "de"
+              ? "Statischer JS-Stack 2026"
+              : "A static JS stack for 2026",
+          date: formatDate(new Date()),
+          excerpt: "",
+          tag: lang === "de" ? "Stack" : "Stack",
+        },
+        {
+          href: "/blog/",
+          title:
+            lang === "de"
+              ? "Wenig Code, viel Wert"
+              : "Less code, more leverage",
+          date: formatDate(new Date()),
+          excerpt: "",
+          tag: lang === "de" ? "Notiz" : "Note",
+        },
+      ];
+
+const featured = display[0];
+const rest = display.slice(1, 5);
+---
+
+<section class="py-20 md:py-28" data-reveal>
+  <header id="writing" class="mb-10 scroll-mt-6">
+    <SectionLabel as="h2" class="mb-4">{t.writing.label}</SectionLabel>
+    <p class="text-xl md:text-2xl text-foreground-strong max-w-[520px]">
+      {t.writing.title}
+    </p>
+  </header>
+
+  <div class="flex flex-col gap-6">
+    {
+      featured && (
+        <PostCard
+          featured
+          href={featured.href}
+          tag={featured.tag}
+          date={featured.date}
+          title={featured.title}
+          excerpt={featured.excerpt}
+          readTime={featured.readTime}
+        />
+      )
+    }
+
+    {
+      rest.length > 0 && (
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-reveal-stagger>
+          {rest.map((p) => (
+            <PostCard href={p.href} tag={p.tag} date={p.date} title={p.title} />
+          ))}
+        </div>
+      )
+    }
+  </div>
+
+  <div class="border-t border-border mt-10 pt-6 flex justify-center">
+    <a
+      href={t.routes.blog}
+      class="text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline"
+      >{t.writing.allPosts}</a
+    >
+  </div>
+</section>
