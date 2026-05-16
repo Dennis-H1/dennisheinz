@@ -1,0 +1,27 @@
+---
+import { strings, type Locale } from "@/i18n/strings";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "de" } = Astro.props;
+const t = strings[lang];
+---
+
+<section class="py-20 md:py-24" data-reveal>
+  <SectionLabel id="about" as="h2" class="mb-5 scroll-mt-6"
+    >{t.about.label}</SectionLabel
+  >
+  <p
+    class="text-[17px] md:text-lg text-muted-foreground leading-[1.7] max-w-[60ch] mb-6"
+  >
+    {t.about.body}
+  </p>
+  <a
+    href="/about/"
+    class="text-[13px] text-foreground hover:text-primary transition-colors no-underline border-b border-border hover:border-primary pb-0.5"
+    >{t.about.more}</a
+  >
+</section>

@@ -1,0 +1,29 @@
+---
+import Base from "@/layouts/Base.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import Hero from "@/components/sections/Hero.astro";
+import Projects from "@/components/sections/Projects.astro";
+import Writing from "@/components/sections/Writing.astro";
+import About from "@/components/sections/About.astro";
+import { strings } from "@/i18n/strings";
+
+const lang = "de" as const;
+const t = strings[lang];
+---
+
+<Base title={t.title} description={t.metaDescription} lang={lang}>
+  <div class="max-w-4xl mx-auto px-6">
+    <Nav lang={lang} />
+    <Hero lang={lang} />
+    <Projects lang={lang} />
+    <Writing lang={lang} />
+    <About lang={lang} />
+    <Footer lang={lang} />
+  </div>
+
+  <script>
+    import { initReveal } from "@/scripts/reveal";
+    initReveal();
+  </script>
+</Base>

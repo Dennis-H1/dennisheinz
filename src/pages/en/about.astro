@@ -1,0 +1,123 @@
+---
+import Base from "@/layouts/Base.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import { strings } from "@/i18n/strings";
+
+const lang = "en" as const;
+const t = strings[lang];
+
+const title = "About — Dennis Heinz";
+const description =
+  "Dennis Heinz, software developer from the Münsterland region. Backend with PHP (Mezzio/Laminas), Android (Kotlin/Compose) and frontend (React/TypeScript). Currently at CHECK24 working on hotel middleware.";
+---
+
+<Base title={title} description={description} lang={lang}>
+  <div class="max-w-4xl mx-auto px-6">
+    <Nav lang={lang} />
+
+    <article>
+      <header class="pt-4 pb-12 md:pb-16" data-reveal data-reveal-stagger>
+        <SectionLabel class="mb-6">{t.about.label}</SectionLabel>
+        <h1 class="about-heading mb-8 max-w-[700px] tracking-tight">
+          Hi, I'm Dennis.
+        </h1>
+        <p
+          class="text-lg md:text-xl text-muted-foreground leading-[1.6] max-w-[60ch]"
+        >
+          Software developer from the Münsterland region in Germany. This site
+          is my corner of the internet — for notes, projects and whatever I'm
+          working on right now.
+        </p>
+      </header>
+
+      <div class="flex flex-col">
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Work</SectionLabel>
+          <p class="about-text">
+            My focus is backend, mostly PHP with Mezzio and Laminas. Alongside
+            that I work on Android (Kotlin and Jetpack Compose) and the frontend
+            with React and TypeScript. Right now I'm at CHECK24 building the
+            middleware for their hotel app.
+          </p>
+        </section>
+
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Side projects</SectionLabel>
+          <p class="about-text">
+            My main project is <strong class="text-foreground font-medium"
+              >Lumina</strong
+            >: a spatial canvas for personal intelligence that brings together
+            AI agents, mobile capture flows and a Laravel/React stack. Alongside
+            that I'm experimenting with an Android app focused on personal
+            growth.
+          </p>
+        </section>
+
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4"
+            >Away from the keyboard</SectionLabel
+          >
+          <p class="about-text">
+            I hike a lot. Currently training for the Zugspitze. I'm also
+            interested in investing (ETFs and individual stocks) and pretty much
+            anything related to personal development.
+          </p>
+        </section>
+
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Where this is going</SectionLabel>
+          <p class="about-text">
+            Long-term I want to move step by step toward entrepreneurship. This
+            site is part of that — a place to think out loud and capture what I
+            learn along the way.
+          </p>
+        </section>
+
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Contact</SectionLabel>
+          <p class="about-text">
+            The easiest way to reach me is{" "}
+            <a
+              href="https://www.linkedin.com/in/dennis-heinz-a185241a9/"
+              class="link">LinkedIn</a
+            > or{" "}
+            <a href="https://github.com/Dennis-H1" class="link">GitHub</a>.
+          </p>
+        </section>
+      </div>
+    </article>
+
+    <Footer lang={lang} />
+  </div>
+
+  <style>
+    .about-heading {
+      font-size: clamp(2.4rem, 7vw, 4.25rem);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--foreground-strong);
+    }
+    .about-block {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 768px) {
+      .about-block {
+        padding: 3rem 0;
+      }
+    }
+    .about-text {
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: var(--muted-foreground);
+      max-width: 62ch;
+    }
+  </style>
+
+  <script>
+    import { initReveal } from "@/scripts/reveal";
+    initReveal();
+  </script>
+</Base>

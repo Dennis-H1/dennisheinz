@@ -7,6 +7,14 @@ import react from "@astrojs/react";
 export default defineConfig({
   site: "https://dennisheinz.com",
   trailingSlash: "always",
+  redirects: {
+    "/": "/de/",
+    "/about/": "/de/about/",
+    "/blog/": "/de/blog/",
+    "/blog/architecture/": "/de/blog/architecture/",
+    "/impressum/": "/de/impressum/",
+    "/datenschutz/": "/de/datenschutz/",
+  },
   integrations: [sitemap(), react()],
   vite: {
     plugins: [tailwindcss()],

@@ -1,0 +1,465 @@
+---
+import Base from "@/layouts/Base.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import { strings } from "@/i18n/strings";
+
+const lang = "de" as const;
+const t = strings[lang];
+
+const title = `${t.privacy.title} — Dennis Heinz`;
+
+const alternates = { de: t.routes.privacy, en: strings.en.routes.privacy };
+---
+
+<Base title={title} description={t.privacy.description} lang={lang}>
+  <div class="max-w-4xl mx-auto px-6">
+    <Nav lang={lang} alternates={alternates} />
+
+    <article class="dsgvo">
+      <header class="pt-4 pb-10 md:pb-12" data-reveal data-reveal-stagger>
+        <SectionLabel class="mb-6">{t.privacy.eyebrow}</SectionLabel>
+        <h1 class="privacy-heading mb-6 tracking-tight">{t.privacy.title}</h1>
+        <p
+          class="text-lg md:text-xl text-muted-foreground leading-[1.55] max-w-[60ch]"
+        >
+          {t.privacy.description}
+        </p>
+        <p
+          class="text-[12px] tracking-wider uppercase text-muted-foreground mt-6"
+        >
+          {t.privacy.asOf("9. Mai 2026")}
+        </p>
+      </header>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="overview">Inhaltsübersicht</h2>
+        <ul class="index">
+          <li><a class="index-link" href="#controller">Verantwortlicher</a></li>
+          <li>
+            <a class="index-link" href="#processing"
+              >Übersicht der Verarbeitungen</a
+            >
+          </li>
+          <li>
+            <a class="index-link" href="#legal-basis">Rechtsgrundlagen</a>
+          </li>
+          <li>
+            <a class="index-link" href="#security">Sicherheitsmaßnahmen</a>
+          </li>
+          <li>
+            <a class="index-link" href="#transfers"
+              >Internationale Datentransfers</a
+            >
+          </li>
+          <li>
+            <a class="index-link" href="#retention"
+              >Datenspeicherung und Löschung</a
+            >
+          </li>
+          <li>
+            <a class="index-link" href="#rights"
+              >Rechte der betroffenen Personen</a
+            >
+          </li>
+          <li><a class="index-link" href="#hosting">Webhosting</a></li>
+          <li><a class="index-link" href="#contact">Kontaktaufnahme</a></li>
+          <li><a class="index-link" href="#blog">Blog</a></li>
+          <li><a class="index-link" href="#changes">Änderungen</a></li>
+        </ul>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="controller">Verantwortlicher</h2>
+        <p>
+          Dennis Heinz<br />
+          Eltropweg 30<br />
+          48155 Münster, Deutschland
+        </p>
+        <p>
+          E-Mail: <a href="mailto:dennis@dennisheinz.com" class="link"
+            >dennis@dennisheinz.com</a
+          >
+        </p>
+        <p>
+          Impressum: <a href={t.routes.legal} class="link">{t.routes.legal}</a>
+        </p>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="processing">Übersicht der Verarbeitungen</h2>
+        <p>
+          Die nachfolgende Übersicht fasst die Arten der verarbeiteten Daten und
+          die Zwecke ihrer Verarbeitung zusammen.
+        </p>
+        <h3>Arten der verarbeiteten Daten</h3>
+        <ul>
+          <li>Bestandsdaten</li>
+          <li>Kontaktdaten</li>
+          <li>Inhaltsdaten</li>
+          <li>Nutzungsdaten</li>
+          <li>Meta-, Kommunikations- und Verfahrensdaten</li>
+          <li>Protokolldaten</li>
+        </ul>
+        <h3>Kategorien betroffener Personen</h3>
+        <ul>
+          <li>Nutzer</li>
+          <li>Kommunikationspartner</li>
+        </ul>
+        <h3>Zwecke der Verarbeitung</h3>
+        <ul>
+          <li>Bereitstellung des Onlineangebots und Nutzerfreundlichkeit</li>
+          <li>Informationstechnische Infrastruktur</li>
+          <li>Sicherheitsmaßnahmen</li>
+          <li>Kommunikation</li>
+        </ul>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="legal-basis">Rechtsgrundlagen</h2>
+        <p>
+          Wir verarbeiten personenbezogene Daten auf folgenden Rechtsgrundlagen
+          gemäß DSGVO:
+        </p>
+        <ul>
+          <li>
+            <strong>Einwilligung (Art. 6 Abs. 1 lit. a DSGVO)</strong> – wenn eine
+            ausdrückliche Einwilligung erteilt wurde.
+          </li>
+          <li>
+            <strong
+              >Rechtliche Verpflichtung (Art. 6 Abs. 1 lit. c DSGVO)</strong
+            >
+            – wenn die Verarbeitung zur Erfüllung einer rechtlichen Pflicht erforderlich
+            ist.
+          </li>
+          <li>
+            <strong>Berechtigte Interessen (Art. 6 Abs. 1 lit. f DSGVO)</strong>
+            – wenn die Verarbeitung zur Wahrung berechtigter Interessen erforderlich
+            ist und Ihre Interessen nicht überwiegen.
+          </li>
+        </ul>
+        <p>
+          In Deutschland ergänzen das BDSG und ggf. Landesdatenschutzgesetze die
+          DSGVO.
+        </p>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="security">Sicherheitsmaßnahmen</h2>
+        <p>
+          Wir treffen geeignete technische und organisatorische Maßnahmen, um
+          ein dem Risiko angemessenes Schutzniveau zu gewährleisten – unter
+          anderem Zugriffskontrollen, Sicherung von Übertragungen per TLS/SSL
+          (HTTPS) und Privacy-by-Design-Prinzipien bei der Auswahl unserer
+          Werkzeuge.
+        </p>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="transfers">Internationale Datentransfers</h2>
+        <p>
+          Bei Übermittlungen in Drittländer (außerhalb EU/EWR) stützen wir uns
+          auf das EU-US Data Privacy Framework (DPF) sowie auf
+          Standardvertragsklauseln gemäß DSGVO. Weitere Informationen zum DPF
+          finden Sie unter <a
+            href="https://www.dataprivacyframework.gov/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link">dataprivacyframework.gov</a
+          >.
+        </p>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="retention">Datenspeicherung und Löschung</h2>
+        <p>
+          Wir löschen personenbezogene Daten, sobald die Rechtsgrundlage für
+          ihre Verarbeitung entfällt und keine gesetzlichen
+          Aufbewahrungspflichten dem entgegenstehen (insbesondere handels- und
+          steuerrechtliche Aufbewahrungsfristen von bis zu 10 Jahren nach § 147
+          AO, § 257 HGB).
+        </p>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="rights">Rechte der betroffenen Personen</h2>
+        <p>
+          Ihnen stehen nach Art. 15 bis 21 DSGVO insbesondere folgende Rechte
+          zu:
+        </p>
+        <ul>
+          <li>
+            <strong>Auskunft</strong> über die zu Ihrer Person gespeicherten Daten.
+          </li>
+          <li><strong>Berichtigung</strong> unrichtiger Daten.</li>
+          <li>
+            <strong>Löschung</strong> oder Einschränkung der Verarbeitung.
+          </li>
+          <li>
+            <strong>Datenübertragbarkeit</strong> – Erhalt der Daten in einem strukturierten
+            Format.
+          </li>
+          <li>
+            <strong>Widerspruch</strong> gegen die Verarbeitung, insbesondere bei
+            berechtigtem Interesse oder Direktwerbung.
+          </li>
+          <li>
+            <strong>Widerruf</strong> erteilter Einwilligungen mit Wirkung für die
+            Zukunft.
+          </li>
+          <li>
+            <strong>Beschwerde</strong> bei der zuständigen Aufsichtsbehörde.
+          </li>
+        </ul>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="hosting">Webhosting</h2>
+        <p>
+          Beim Aufruf der Seite werden technisch erforderliche Daten
+          (IP-Adresse, Zeitstempel, User-Agent, Referrer, abgerufene Pfade)
+          verarbeitet, um die Inhalte auszuliefern und die Stabilität der Server
+          zu gewährleisten. Logfile-Daten werden für maximal 30 Tage
+          gespeichert.
+        </p>
+        <h3>Hetzner</h3>
+        <p>
+          Server-Hosting bei Hetzner Online GmbH, Industriestr. 25, 91710
+          Gunzenhausen, Deutschland. Datenschutz: <a
+            href="https://www.hetzner.com/de/rechtliches/datenschutz"
+            target="_blank"
+            rel="noopener"
+            class="link">hetzner.com/datenschutz</a
+          >.
+        </p>
+        <div class="h3-row">
+          <h3>Cloudflare</h3>
+          <span
+            class="adjusted-badge"
+            title="Dieser Abschnitt wurde von uns ergänzt und ist nicht Teil des generierten Texts."
+            >Eigene Ergänzung</span
+          >
+        </div>
+        <p>
+          CDN und Sicherheitsdienste durch Cloudflare, Inc., 101 Townsend St,
+          San Francisco, CA 94107, USA. Verarbeitet IP-Adressen und
+          Verbindungsdaten zur DDoS-Abwehr und Auslieferung. Datenschutz:
+          <a
+            href="https://www.cloudflare.com/privacypolicy/"
+            target="_blank"
+            rel="noopener"
+            class="link">cloudflare.com/privacypolicy</a
+          >. Grundlage für Drittlandtransfer: DPF und Standardvertragsklauseln.
+        </p>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="contact">Kontaktaufnahme</h2>
+        <p>
+          Bei E-Mail-Kontakt verarbeiten wir die übermittelten Angaben (Name,
+          E-Mail, Inhalt) ausschließlich zur Beantwortung Ihrer Anfrage.
+        </p>
+        <div class="h3-row">
+          <h3>Cloudflare Email Routing</h3>
+          <span
+            class="adjusted-badge"
+            title="Dieser Abschnitt wurde von uns ergänzt und ist nicht Teil des generierten Texts."
+            >Eigene Ergänzung</span
+          >
+        </div>
+        <p>
+          Weiterleitung von E-Mails über Cloudflare, Inc. Datenschutz:
+          <a
+            href="https://www.cloudflare.com/privacypolicy/"
+            target="_blank"
+            rel="noopener"
+            class="link">cloudflare.com/privacypolicy</a
+          >.
+        </p>
+        <div class="h3-row">
+          <h3>Brevo</h3>
+          <span
+            class="adjusted-badge"
+            title="Dieser Abschnitt wurde von uns ergänzt und ist nicht Teil des generierten Texts."
+            >Eigene Ergänzung</span
+          >
+        </div>
+        <p>
+          SMTP-Versand und E-Mail-Authentifizierung über Sendinblue GmbH
+          (Brevo), Köpenicker Straße 126, 10179 Berlin. Datenschutz:
+          <a
+            href="https://www.brevo.com/de/legal/privacypolicy/"
+            target="_blank"
+            rel="noopener"
+            class="link">brevo.com/legal/privacypolicy</a
+          >.
+        </p>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="blog">Blog</h2>
+        <p>
+          Die Blog-Beiträge werden statisch ausgeliefert. Es findet keine
+          Kommentar-Funktion, kein Tracking und kein Newsletter statt.
+        </p>
+      </section>
+
+      <section class="privacy-block" data-reveal>
+        <h2 id="changes">Änderungen</h2>
+        <p>
+          Wir passen diese Datenschutzerklärung an, sobald sich die zugrunde
+          liegenden Verarbeitungen ändern. Die aktuelle Fassung ist stets unter
+          dieser URL abrufbar.
+        </p>
+      </section>
+
+      <p class="generator-credit" data-reveal>
+        Erstellt mit dem <a
+          href="https://datenschutz-generator.de/impressum/?dsgo=free"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link">Datenschutz-Generator von Dr. Thomas Schwenke</a
+        >. Die mit „Eigene Ergänzung“ markierten Abschnitte wurden von uns
+        manuell ergänzt.
+      </p>
+    </article>
+
+    <Footer lang={lang} />
+  </div>
+
+  <style>
+    .privacy-heading {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.08;
+      color: var(--foreground-strong);
+    }
+    .privacy-block {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 768px) {
+      .privacy-block {
+        padding: 3rem 0;
+      }
+    }
+    .dsgvo p {
+      font-size: 15px;
+      color: var(--muted-foreground);
+      line-height: 1.75;
+      margin-bottom: 0.85rem;
+      max-width: 64ch;
+    }
+    .dsgvo strong {
+      color: var(--foreground);
+      font-weight: 500;
+    }
+    .dsgvo h2 {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--foreground-strong);
+      letter-spacing: -0.005em;
+      margin-bottom: 1rem;
+      scroll-margin-top: 1.5rem;
+    }
+    .dsgvo h3 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+      margin: 2rem 0 0.5rem;
+    }
+    .dsgvo ul {
+      list-style: none;
+      margin: 0.5rem 0;
+      padding: 0;
+      max-width: 64ch;
+    }
+    .dsgvo ul li {
+      position: relative;
+      padding: 0.45rem 0 0.45rem 1rem;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted-foreground);
+    }
+    .dsgvo ul li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.05rem;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .dsgvo ul.index {
+      columns: 2;
+      column-gap: 2rem;
+      max-width: 720px;
+    }
+    .dsgvo ul.index li {
+      break-inside: avoid;
+      padding: 0.3rem 0 0.3rem 1rem;
+    }
+    .dsgvo ul.index li::before {
+      top: 0.95rem;
+    }
+    .index-link {
+      font-size: 14px;
+      color: var(--muted-foreground);
+      text-decoration: none;
+    }
+    .index-link:hover {
+      color: var(--primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 480px) {
+      .dsgvo ul.index {
+        columns: 1;
+      }
+    }
+    .h3-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 2rem 0 0.5rem;
+    }
+    .h3-row h3 {
+      margin: 0;
+    }
+    .adjusted-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.45rem;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      line-height: 1;
+      cursor: help;
+    }
+    .generator-credit {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 12px !important;
+      line-height: 1.6 !important;
+      color: var(--muted-foreground);
+      max-width: 64ch;
+    }
+  </style>
+
+  <script>
+    import { initReveal } from "@/scripts/reveal";
+    initReveal();
+  </script>
+</Base>

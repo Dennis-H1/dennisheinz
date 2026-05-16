@@ -1,0 +1,47 @@
+---
+import { strings, type Locale } from "@/i18n/strings";
+import { projects } from "@/data/projects";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import ProjectCard from "@/components/ui/ProjectCard.astro";
+import LuminaDotGrid from "@/components/visuals/LuminaDotGrid.astro";
+import SiteMiniature from "@/components/visuals/SiteMiniature.astro";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "de" } = Astro.props;
+const t = strings[lang];
+const items = projects[lang];
+---
+
+<section class="py-20 md:py-28" data-reveal>
+  <header id="projects" class="mb-10 scroll-mt-6">
+    <SectionLabel as="h2" class="mb-4">{t.projects.label}</SectionLabel>
+    <p class="text-xl md:text-2xl text-foreground-strong max-w-[520px]">
+      {t.projects.title}
+    </p>
+  </header>
+
+  <div class="flex flex-col">
+    {
+      items.map((p, i) => (
+        <ProjectCard
+          number={p.number}
+          name={p.name}
+          description={p.description}
+          tags={p.tags}
+          href={p.href}
+          hrefLabel={p.hrefLabel}
+          featured={i === 0}
+        >
+          {p.visual === "lumina" ? (
+            <LuminaDotGrid slot="visual" lang={lang} />
+          ) : (
+            <SiteMiniature slot="visual" />
+          )}
+        </ProjectCard>
+      ))
+    }
+  </div>
+</section>

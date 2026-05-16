@@ -1,0 +1,88 @@
+---
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import Tag from "./Tag.astro";
+
+const postVariants = cva(
+  "block group no-underline transition-colors rounded-md border border-border bg-card/30 hover:bg-accent/40",
+  {
+    variants: {
+      featured: {
+        true: "p-6 md:p-8 grid grid-cols-1 md:grid-cols-[1fr_auto] md:items-end gap-6",
+        false: "p-5 flex flex-col gap-3 h-full",
+      },
+    },
+    defaultVariants: {
+      featured: false,
+    },
+  },
+);
+
+interface Props extends VariantProps<typeof postVariants> {
+  class?: string;
+  href: string;
+  tag?: string;
+  date: string;
+  title: string;
+  excerpt?: string;
+  readTime?: string;
+}
+
+const {
+  featured,
+  class: className,
+  href,
+  tag,
+  date,
+  title,
+  excerpt,
+  readTime,
+} = Astro.props;
+---
+
+<a href={href} class={cn(postVariants({ featured }), className)}>
+  {
+    featured ? (
+      <>
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-3 text-[11px] text-muted-foreground">
+            {tag && <Tag size="sm">{tag}</Tag>}
+            <time>{date}</time>
+            {readTime && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>{readTime}</span>
+              </>
+            )}
+          </div>
+          <h3 class="text-xl md:text-2xl font-medium text-foreground-strong leading-tight">
+            {title}
+          </h3>
+          {excerpt && (
+            <p class="text-[14px] text-muted-foreground leading-[1.65] max-w-[52ch]">
+              {excerpt}
+            </p>
+          )}
+        </div>
+        <span class="text-[13px] text-muted-foreground group-hover:text-foreground transition-colors">
+          →
+        </span>
+      </>
+    ) : (
+      <>
+        <div class="flex items-center justify-between">
+          {tag ? <Tag size="sm">{tag}</Tag> : <span />}
+          <span class="text-[11px] text-muted-foreground tabular-nums">
+            {date}
+          </span>
+        </div>
+        <h3 class="text-[15px] font-medium text-foreground leading-snug flex-1">
+          {title}
+        </h3>
+        <span class="text-[13px] text-muted-foreground group-hover:text-foreground transition-colors self-end">
+          →
+        </span>
+      </>
+    )
+  }
+</a>

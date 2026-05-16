@@ -1,0 +1,93 @@
+---
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const contentVariants = cva(
+  "popover-content absolute top-[calc(100%+0.55rem)] z-30 min-w-[160px] rounded-md border border-border/40 bg-popover/40 text-popover-foreground shadow-xl backdrop-blur-2xl backdrop-saturate-150 py-1.5 ring-1 ring-foreground/[0.03]",
+  {
+    variants: {
+      align: {
+        left: "left-0",
+        right: "right-0",
+        center: "left-1/2 -translate-x-1/2",
+      },
+    },
+    defaultVariants: {
+      align: "right",
+    },
+  },
+);
+
+interface Props extends VariantProps<typeof contentVariants> {
+  class?: string;
+  contentClass?: string;
+  ariaLabel?: string;
+}
+
+const { align, class: className, contentClass, ariaLabel } = Astro.props;
+---
+
+<details class={cn("popover relative", className)} data-popover>
+  <summary
+    aria-label={ariaLabel}
+    class="popover-trigger flex items-center justify-center h-5 w-5 leading-none cursor-pointer list-none select-none text-muted-foreground hover:text-foreground transition-colors"
+  >
+    <slot name="trigger" />
+  </summary>
+  <div class={cn(contentVariants({ align }), contentClass)} role="menu">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .popover {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .popover > summary {
+    list-style: none;
+  }
+  .popover > summary::-webkit-details-marker {
+    display: none;
+  }
+  .popover > summary::marker {
+    content: "";
+  }
+  .popover .popover-content {
+    display: none;
+    line-height: normal;
+  }
+  .popover[open] > .popover-content {
+    display: block;
+    animation: popover-pop 0.14s ease-out;
+  }
+  @keyframes popover-pop {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .popover[open] > .popover-content.left-1\/2.-translate-x-1\/2 {
+    animation: popover-pop-center 0.14s ease-out;
+  }
+  @keyframes popover-pop-center {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -4px);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+</style>
+
+<script>
+  import { initPopovers } from "@/scripts/popover";
+  initPopovers();
+</script>

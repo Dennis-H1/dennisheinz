@@ -1,0 +1,121 @@
+---
+import Base from "@/layouts/Base.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import { strings } from "@/i18n/strings";
+
+const lang = "de" as const;
+const t = strings[lang];
+
+const title = "Über mich — Dennis Heinz";
+const description =
+  "Dennis Heinz, Softwareentwickler aus dem Münsterland. Backend mit PHP (Mezzio/Laminas), Android (Kotlin/Compose) und Frontend (React/TypeScript). Aktuell bei CHECK24 an Hotel-Middleware.";
+---
+
+<Base title={title} description={description} lang={lang}>
+  <div class="max-w-4xl mx-auto px-6">
+    <Nav lang={lang} />
+
+    <article>
+      <header class="pt-4 pb-12 md:pb-16" data-reveal data-reveal-stagger>
+        <SectionLabel class="mb-6">{t.about.label}</SectionLabel>
+        <h1 class="about-heading mb-8 max-w-[700px] tracking-tight">
+          Hi, ich bin Dennis.
+        </h1>
+        <p
+          class="text-lg md:text-xl text-muted-foreground leading-[1.6] max-w-[60ch]"
+        >
+          Softwareentwickler aus dem Münsterland. Diese Seite ist mein Platz im
+          Netz – für Notizen, Projekte und das, woran ich gerade arbeite.
+        </p>
+      </header>
+
+      <div class="flex flex-col">
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Beruflich</SectionLabel>
+          <p class="about-text">
+            Mein Schwerpunkt liegt im Backend, vor allem mit PHP – Mezzio und
+            Laminas. Daneben arbeite ich mit Android (Kotlin und Jetpack
+            Compose) und im Frontend mit React und TypeScript. Aktuell bin ich
+            bei CHECK24 und programmiere dort die Hotel App Middleware.
+          </p>
+        </section>
+
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Nebenprojekte</SectionLabel>
+          <p class="about-text">
+            Mein größtes laufendes Projekt heißt <strong
+              class="text-foreground font-medium">Lumina</strong
+            >: ein räumliches Canvas als persönlicher Intelligenz-Workspace, das
+            KI-Agenten, mobile Capture-Flows und einen Laravel/React-Stack
+            zusammenbringt. Daneben experimentiere ich mit einer Android-App
+            rund um persönliches Wachstum.
+          </p>
+        </section>
+
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Abseits vom Code</SectionLabel>
+          <p class="about-text">
+            Ich wandere sehr gerne. Aktuell trainiere ich auf die Zugspitze hin.
+            Mich interessieren außerdem Investieren (ETFs und Einzelaktien), und
+            alles rund um persönliche Entwicklung.
+          </p>
+        </section>
+
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Wohin es gehen soll</SectionLabel>
+          <p class="about-text">
+            Auf längere Sicht möchte ich mich Schritt für Schritt in Richtung
+            Entrepreneurship bewegen. Diese Seite ist ein Teil davon: ein Ort,
+            an dem ich öffentlich denke und das festhalte, was ich auf dem Weg
+            dorthin lerne.
+          </p>
+        </section>
+
+        <section class="about-block" data-reveal>
+          <SectionLabel as="h2" class="mb-4">Kontakt</SectionLabel>
+          <p class="about-text">
+            Am einfachsten erreichst du mich über{" "}
+            <a
+              href="https://www.linkedin.com/in/dennis-heinz-a185241a9/"
+              class="link">LinkedIn</a
+            > oder{" "}
+            <a href="https://github.com/Dennis-H1" class="link">GitHub</a>.
+          </p>
+        </section>
+      </div>
+    </article>
+
+    <Footer lang={lang} />
+  </div>
+
+  <style>
+    .about-heading {
+      font-size: clamp(2.4rem, 7vw, 4.25rem);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--foreground-strong);
+    }
+    .about-block {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 768px) {
+      .about-block {
+        padding: 3rem 0;
+      }
+    }
+    .about-text {
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: var(--muted-foreground);
+      max-width: 62ch;
+    }
+  </style>
+
+  <script>
+    import { initReveal } from "@/scripts/reveal";
+    initReveal();
+  </script>
+</Base>
