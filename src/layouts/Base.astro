@@ -166,6 +166,12 @@ const ogLocale = "de_DE";
       href="/rss.xml"
     />
 
+    <script is:inline>
+      (function () {
+        var t = localStorage.getItem("theme");
+        if (t) document.documentElement.dataset.theme = t;
+      })();
+    </script>
     <script
       type="application/ld+json"
       set:html={structuredDataJson}

@@ -1,5 +1,5 @@
 ---
-
+import { Sun, Moon } from "lucide-react";
 ---
 
 <nav class="flex items-center justify-between py-5 mb-16">
@@ -9,7 +9,7 @@
   >
     Dennis Heinz
   </a>
-  <div class="flex gap-8">
+  <div class="flex items-center gap-8">
     <a
       href="/about/"
       class="text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline"
@@ -20,5 +20,18 @@
       class="text-[13px] text-muted-foreground hover:text-foreground transition-colors no-underline"
       >Blog</a
     >
+    <button
+      id="theme-toggle"
+      aria-label="Theme wechseln"
+      class="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+    >
+      <Sun data-icon="sun" size={16} aria-hidden="true" />
+      <Moon data-icon="moon" size={16} aria-hidden="true" />
+    </button>
   </div>
 </nav>
+
+<script>
+  import { initThemeToggle } from "../scripts/theme";
+  initThemeToggle();
+</script>

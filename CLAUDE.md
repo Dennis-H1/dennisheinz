@@ -142,16 +142,13 @@ Reusable static components follow a strict pattern so the design system stays co
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "base classes shared by every variant",
-  {
-    variants: {
-      variant: { default: "...", outline: "...", ghost: "..." },
-      size: { sm: "...", md: "...", lg: "..." },
-    },
-    defaultVariants: { variant: "default", size: "md" },
+const buttonVariants = cva("base classes shared by every variant", {
+  variants: {
+    variant: { default: "...", outline: "...", ghost: "..." },
+    size: { sm: "...", md: "...", lg: "..." },
   },
-);
+  defaultVariants: { variant: "default", size: "md" },
+});
 
 interface Props extends VariantProps<typeof buttonVariants> {
   class?: string;
