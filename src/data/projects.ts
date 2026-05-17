@@ -20,8 +20,8 @@ export const projects: Record<Locale, ProjectEntry[]> = {
       description:
         "Räumliche Leinwand für persönliche Intelligenz. KI-Agenten, mobile Erfassung, wöchentliche Reviews.",
       tags: ["Laravel", "React", "Kotlin", "Jetpack Compose"],
-      href: null,
-      hrefLabel: "Bald verfügbar",
+      href: "https://lumina.dennisheinz.com",
+      hrefLabel: "lumina.dennisheinz.com →",
       visual: "lumina",
     },
     {
@@ -42,8 +42,8 @@ export const projects: Record<Locale, ProjectEntry[]> = {
       description:
         "Spatial canvas for personal intelligence. AI agents, mobile capture, weekly reviews.",
       tags: ["Laravel", "React", "Kotlin", "Jetpack Compose"],
-      href: null,
-      hrefLabel: "Coming soon",
+      href: "https://lumina.dennisheinz.com",
+      hrefLabel: "lumina.dennisheinz.com →",
       visual: "lumina",
     },
     {
