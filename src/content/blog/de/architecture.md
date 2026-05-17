@@ -68,3 +68,5 @@ Wenn Stufe 2 nicht mehr reicht, bleibt Vanilla JS immer die erste Frage. Erst we
 React im Dependency-Tree und kein React im Browser ist kein Widerspruch. Es ist nur die Frage, auf welcher Seite der Build-Grenze Code lebt.
 
 Für eine Content-Seite ist die Build-Grenze die wichtigste Grenze überhaupt. Was dort bleibt, kostet den Nutzer nichts.
+
+Mein anderes Projekt, [Lumina](https://lumina.dennisheinz.com), folgt einer anderen Logik: dort ist reaktiver State unvermeidlich, also kommt dort auch ein vollständiges Framework-Frontend zum Einsatz.
