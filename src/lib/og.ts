@@ -119,7 +119,7 @@ export async function renderOgImage({
     },
   };
 
-  const svg = await satori(node as any, {
+  const svg = await satori(node as Parameters<typeof satori>[0], {
     width: 1200,
     height: 630,
     fonts,
