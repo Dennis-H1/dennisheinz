@@ -77,7 +77,19 @@ jobs:
         run: |
           user="${VPS_USER//[$'\r\n ']/}"
           host="${VPS_HOST//[$'\r\n ']/}"
+
+          if [[ ! "$user" =~ ^[a-zA-Z_][a-zA-Z0-9_-]{0,31}$ ]]; then
+            echo "::error::VPS_USER secret is malformed. Expected a unix username (letters/digits/_/-)."
+            exit 1
+          fi
+          if [[ ! "$host" =~ ^[a-zA-Z0-9.-]+$ ]]; then
+            echo "::error::VPS_HOST secret is malformed. Expected a hostname or IP (letters/digits/./-)."
+            exit 1
+          fi
+
           release="$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA::7}"
+
+          ssh "${user}@${host}" "mkdir -p '${DEPLOY_ROOT}/releases/${release}'"
 
           rsync -az --delete \
             dist/ \

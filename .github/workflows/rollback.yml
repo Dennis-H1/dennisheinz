@@ -37,6 +37,15 @@ jobs:
           user="${VPS_USER//[$'\r\n ']/}"
           host="${VPS_HOST//[$'\r\n ']/}"
 
+          if [[ ! "$user" =~ ^[a-zA-Z_][a-zA-Z0-9_-]{0,31}$ ]]; then
+            echo "::error::VPS_USER secret is malformed."
+            exit 1
+          fi
+          if [[ ! "$host" =~ ^[a-zA-Z0-9.-]+$ ]]; then
+            echo "::error::VPS_HOST secret is malformed."
+            exit 1
+          fi
+
           ssh "${user}@${host}" bash -s <<EOF
           set -euo pipefail
           cd "${DEPLOY_ROOT}/releases"
