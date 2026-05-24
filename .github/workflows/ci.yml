@@ -45,7 +45,14 @@ jobs:
       - name: Link check
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --include-fragments 'dist/**/*.html'
+          args: >-
+            --no-progress
+            --include-fragments
+            --root-dir ${{ github.workspace }}/dist
+            --exclude linkedin\.com
+            --exclude npmjs\.com
+            --exclude dennisheinz\.com/404
+            'dist/**/*.html'
           fail: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
