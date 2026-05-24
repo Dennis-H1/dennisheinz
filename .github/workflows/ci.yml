@@ -25,9 +25,6 @@ jobs:
 
       - run: npm ci
 
-      - name: Audit dependencies
-        run: npm audit --audit-level=high
-
       - name: Format check
         run: npm run format:check
 
@@ -40,22 +37,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Link check
-        uses: lycheeverse/lychee-action@v2
-        with:
-          args: >-
-            --no-progress
-            --include-fragments
-            --root-dir ${{ github.workspace }}/dist
-            --exclude linkedin\.com
-            --exclude npmjs\.com
-            --exclude dennisheinz\.com/404
-            'dist/**/*.html'
-          fail: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Lighthouse CI
+        if: github.event_name == 'pull_request'
         uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./.lighthouserc.json
@@ -93,8 +76,25 @@ jobs:
           echo "${{ secrets.VPS_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
-      - name: Rsync dist/ to nginx
+      - name: Deploy (atomic release + symlink swap)
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          DEPLOY_ROOT: /var/www/dennisheinz
+          KEEP_RELEASES: "5"
         run: |
-          rsync -avz --delete \
+          user="${VPS_USER//[$'\r\n ']/}"
+          host="${VPS_HOST//[$'\r\n ']/}"
+          release="$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA::7}"
+
+          rsync -az --delete \
             dist/ \
-            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/dennisheinz/"
+            "${user}@${host}:${DEPLOY_ROOT}/releases/${release}/"
+
+          ssh "${user}@${host}" bash -s <<EOF
+          set -euo pipefail
+          ln -sfn "${DEPLOY_ROOT}/releases/${release}" "${DEPLOY_ROOT}/current.new"
+          mv -Tf "${DEPLOY_ROOT}/current.new" "${DEPLOY_ROOT}/current"
+          cd "${DEPLOY_ROOT}/releases"
+          ls -1t | tail -n +$((${KEEP_RELEASES} + 1)) | xargs -r rm -rf
+          EOF
