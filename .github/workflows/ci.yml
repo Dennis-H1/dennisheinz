@@ -97,8 +97,9 @@ jobs:
 
           ssh "${user}@${host}" bash -s <<EOF
           set -euo pipefail
-          ln -sfn "${DEPLOY_ROOT}/releases/${release}" "${DEPLOY_ROOT}/current.new"
-          mv -Tf "${DEPLOY_ROOT}/current.new" "${DEPLOY_ROOT}/current"
-          cd "${DEPLOY_ROOT}/releases"
+          cd "${DEPLOY_ROOT}"
+          ln -sfn "releases/${release}" current.new
+          mv -Tf current.new current
+          cd releases
           ls -1t | tail -n +$((${KEEP_RELEASES} + 1)) | xargs -r rm -rf
           EOF
