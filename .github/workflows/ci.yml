@@ -1,9 +1,14 @@
 name: CI
 
+# Deploy is manual: dist/ artifact (uploaded below) is published out-of-band to nginx.
+
 on:
   push:
     branches: [master]
   pull_request:
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,10 +22,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: ".nvmrc"
           cache: npm
 
       - run: npm ci
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
 
       - name: Format check
         run: npm run format:check
@@ -33,6 +41,21 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Link check
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --include-fragments 'dist/**/*.html'
+          fail: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./.lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
 
       - name: Upload build artifact
         if: github.ref == 'refs/heads/master'
