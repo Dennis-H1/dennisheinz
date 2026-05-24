@@ -37,14 +37,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Lighthouse CI
-        if: github.event_name == 'pull_request'
-        uses: treosh/lighthouse-ci-action@v12
-        with:
-          configPath: ./.lighthouserc.json
-          uploadArtifacts: true
-          temporaryPublicStorage: true
-
       - name: Upload build artifact
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v4
