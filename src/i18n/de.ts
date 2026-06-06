@@ -40,7 +40,7 @@ export const de: StringBundle = {
     eyebrow: "Softwareentwickler · Münsterland, DE",
     name: "Dennis Heinz",
     subtitlePost: "aus dem Münsterland.",
-    cyclerWords: ["Indie Hacker", "Tech-Enthusiast", "Wanderer", "Investor"],
+    cyclerWords: ["Indie Hacker", "Tech-Enthusiast"],
     socialGithub: "GitHub",
     socialLinkedin: "LinkedIn",
     scrollCue: "scrollen",
